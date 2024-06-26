@@ -1,18 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const photosController = require("../controllers/photos.js");
+const validator = require('../middlewares/validator.js');
+const { validationSlug } = require("../validations/generalValidation.js");
+const bodyData = require("../validations/photos.js");
 
 // Rotta Store
-router.post('/', photosController.store);
+router.post('/', validator(bodyData), photosController.store);
 
 // Rotta Index
 router.get('/', photosController.index);
+
+// Validatore dello slug
+router.use('/:slug', validator(validationSlug));
 
 // Rotta Show
 router.get('/:slug', photosController.show);
 
 // Rotta update
-router.put('/:slug', photosController.update);
+router.put('/:slug', validator(bodyData), photosController.update);
 
 // Rotta Delete
 router.delete('/:slug', photosController.destroy);
