@@ -18,7 +18,7 @@ const validationSlug = {
 }
 
 const validationCategorySlug = {
-    id: {
+    slug: {
         in: ["params"],
         custom: {
             options: async (value) => {

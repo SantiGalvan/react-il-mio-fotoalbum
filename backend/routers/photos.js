@@ -3,7 +3,7 @@ const router = express.Router();
 const photosController = require("../controllers/photos.js");
 const validator = require('../middlewares/validator.js');
 const { validationSlug } = require("../validations/generalValidation.js");
-const bodyData = require("../validations/photos.js");
+const { bodyData } = require("../validations/photos.js");
 
 // Rotta Store
 router.post('/', validator(bodyData), photosController.store);

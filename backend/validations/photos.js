@@ -36,7 +36,7 @@ const bodyData = {
     },
     visible: {
         in: ['body'],
-        isboolean: {
+        isBoolean: {
             errorMessage: 'Visible deve essere un booleano',
             bail: true
         },

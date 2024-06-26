@@ -19,7 +19,7 @@ const store = async (req, res) => {
         description,
         visible: req.body.visible ? req.body.visible : false,
         categories: {
-            connect: categories.map(id => ({ id: parseInt(id) }))
+            connect: categories.map(category => ({ id: category.id }))
         }
     }
 
@@ -32,6 +32,11 @@ const store = async (req, res) => {
                     select: {
                         id: true,
                         label: true
+                    }
+                },
+                user: {
+                    select: {
+                        name: true
                     }
                 }
             }
@@ -152,7 +157,7 @@ const update = async (req, res) => {
             description,
             visible: req.body.visible ? req.body.visible : false,
             categories: {
-                set: categories.map(id => ({ id: parseInt(id) }))
+                set: categories.map(category => ({ id: category.id }))
             }
         }
 
