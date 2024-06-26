@@ -53,7 +53,34 @@ const show = async (req, res) => {
     }
 }
 
-const update = async (req, res) => { }
+const update = async (req, res) => {
+    try {
+
+        const { slug } = req.params;
+
+        const { label, color } = req.body;
+
+        const categories = await prisma.category.findMany();
+        const slugs = categories.map(category => category.slug);
+        const newSlug = generateSlug(label, slugs);
+
+        const data = {
+            label,
+            color,
+            slug: newSlug
+        }
+
+        const category = await prisma.category.update({
+            where: { slug },
+            data
+        });
+        res.status(200).send(category);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 const destroy = async (req, res) => { }
 
