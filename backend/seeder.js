@@ -100,26 +100,31 @@ const users = [
 
 const messages = [
     {
+        id: 1,
         content: 'Great shot! Really captures the essence of photography.',
         email: 'john.doe@example.com',
         userId: 1,
     },
     {
+        id: 2,
         content: 'Love the composition in this photo!',
         email: 'jane.smith@example.com',
         userId: 9,
     },
     {
+        id: 3,
         content: 'Awesome work! Keep it up.',
         email: 'michael.jones@example.com',
         userId: 3,
     },
     {
+        id: 4,
         content: 'This photo tells a story. Well done!',
         email: 'susan.white@example.com',
         userId: 4,
     },
     {
+        id: 5,
         content: 'Impressive photography skills!',
         email: 'peter.parker@example.com',
         userId: 7,
@@ -203,7 +208,7 @@ const photos = [
         slug: "ritratto-di-giovane-donna",
         image: "ritratto2.jpg",
         description: "Ritratto di una giovane donna con sguardo sereno",
-        visible: true,
+        visible: false,
         categories: [3],
         userId: 2,
     },
@@ -253,7 +258,7 @@ const photos = [
         slug: "foresta-innevata",
         image: "foresta.jpg",
         description: "Paesaggio di una foresta innevata con alberi ricoperti di neve",
-        visible: true,
+        visible: false,
         categories: [1, 2],
         userId: 1,
     },
@@ -313,7 +318,7 @@ const photos = [
         slug: "campagna-toscana-in-primavera",
         image: "toscana.jpg",
         description: "Paesaggio della campagna toscana con campi verdi e cielo azzurro",
-        visible: true,
+        visible: false,
         categories: [1, 2],
         userId: 1,
     },
@@ -329,7 +334,7 @@ const photos = [
     },
 ];
 
-Categorie
+// Categorie
 prisma.category.createMany({
     data: categories
 })
