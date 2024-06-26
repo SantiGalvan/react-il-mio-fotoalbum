@@ -39,7 +39,19 @@ const index = async (req, res) => {
     }
 }
 
-const show = async (req, res) => { }
+const show = async (req, res) => {
+    try {
+
+        const { slug } = req.params;
+
+        const category = await prisma.category.findUnique({ where: { slug } });
+        res.status(200).send(category);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 const update = async (req, res) => { }
 
