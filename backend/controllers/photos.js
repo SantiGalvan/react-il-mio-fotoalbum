@@ -1,7 +1,49 @@
 const { PrismaClient } = require("@prisma/client");
+const generateSlug = require("../utils/slug");
 const prisma = new PrismaClient();
 
-const store = async (req, res) => { }
+const store = async (req, res) => {
+
+    const { title, description, categories } = req.body;
+
+    const posts = await prisma.photo.findMany();
+    const slugs = posts.map(post => post.slug);
+
+    const slug = generateSlug(title, slugs);
+
+    const data = {
+        title,
+        slug,
+        image: '',
+        description,
+        visible: req.body.visible ? req.body.visible : false,
+        categories: {
+            connect: categories.map(id => ({ id: parseInt(id) }))
+        }
+    }
+
+    try {
+
+        const photo = await prisma.photo.create({
+            data,
+            include: {
+                categories: {
+                    select: {
+                        id: true,
+                        label: true
+                    }
+                }
+            }
+        });
+
+        res.status(200).send(photo);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+
+}
 
 const index = async (req, res) => {
     try {
