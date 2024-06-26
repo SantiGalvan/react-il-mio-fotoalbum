@@ -1,7 +1,25 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const store = async (req, res) => { }
+const store = async (req, res) => {
+    const { content, email } = req.body;
+
+    const data = {
+        email,
+        content,
+        userId: 7
+    }
+
+    try {
+
+        const message = await prisma.message.create({ data });
+        res.status(200).send(message);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 const index = async (req, res) => {
     try {
