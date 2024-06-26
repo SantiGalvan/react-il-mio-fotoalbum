@@ -6,8 +6,8 @@ const store = async (req, res) => {
 
     const { title, description, categories } = req.body;
 
-    const posts = await prisma.photo.findMany();
-    const slugs = posts.map(post => post.slug);
+    const photos = await prisma.photo.findMany();
+    const slugs = photos.map(photo => photo.slug);
 
     const slug = generateSlug(title, slugs);
 
@@ -137,7 +137,53 @@ const show = async (req, res) => {
     }
 }
 
-const update = async (req, res) => { }
+const update = async (req, res) => {
+    try {
+        const { slug } = req.params;
+
+        const { title, description, categories } = req.body;
+
+        const photos = await prisma.photo.findMany();
+        const slugs = photos.map(photo => photo.slug);
+        const newSlug = generateSlug(title, slugs);
+
+        const data = {
+            title,
+            slug: newSlug,
+            image: '',
+            description,
+            visible: req.body.visible ? req.body.visible : false,
+            categories: {
+                connect: categories.map(id => ({ id: parseInt(id) }))
+            }
+        }
+
+        const photo = await prisma.photo.update({
+            where: { slug },
+            data,
+            include: {
+                categories: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true
+                    }
+                },
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+
+        res.status(200).send(photo);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 const destroy = async (req, res) => { }
 
