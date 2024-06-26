@@ -4,9 +4,10 @@ const photosController = require("../controllers/photos.js");
 const validator = require('../middlewares/validator.js');
 const { validationSlug } = require("../validations/generalValidation.js");
 const { bodyData } = require("../validations/photos.js");
+const validationToken = require("../middlewares/auth.js");
 
 // Rotta Store
-router.post('/', validator(bodyData), photosController.store);
+router.post('/', [validationToken, validator(bodyData)], photosController.store);
 
 // Rotta Index
 router.get('/', photosController.index);
@@ -18,9 +19,9 @@ router.use('/:slug', validator(validationSlug));
 router.get('/:slug', photosController.show);
 
 // Rotta update
-router.put('/:slug', validator(bodyData), photosController.update);
+router.put('/:slug', [validationToken, validator(bodyData)], photosController.update);
 
 // Rotta Delete
-router.delete('/:slug', photosController.destroy);
+router.delete('/:slug', validationToken, photosController.destroy);
 
 module.exports = router;
