@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { hashPassword, comparePassword } = require("../utils/password.js");
 const generateToken = require("../utils/generateToken.js");
+const errorHandler = require("../middlewares/errorHandler.js");
 
 const register = async (req, res) => {
     try {
@@ -28,8 +29,7 @@ const register = async (req, res) => {
         res.status(200).json({ token, data: user });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -56,8 +56,7 @@ const login = async (req, res) => {
         res.status(200).json({ token, data: user });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -74,8 +73,7 @@ const index = async (req, res) => {
         res.status(200).json(users);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 

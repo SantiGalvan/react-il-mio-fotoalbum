@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const generateSlug = require("../utils/slug");
+const errorHandler = require("../middlewares/errorHandler.js");
 
 const store = async (req, res) => {
 
@@ -39,8 +40,7 @@ const store = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res); (err);
     }
 
 }
@@ -102,8 +102,7 @@ const index = async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res); (err);
     }
 }
 
@@ -132,8 +131,7 @@ const show = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res); (err);
     }
 }
 
@@ -180,8 +178,7 @@ const update = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res); (err);
     }
 }
 
@@ -193,8 +190,7 @@ const destroy = async (req, res) => {
         res.status(200).json(`Photo ${photo.title} con slug:${slug} eliminata con successo`);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res); (err);
     }
 }
 

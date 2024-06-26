@@ -9,6 +9,8 @@ const photosRouter = require("./routers/photos.js");
 const authRouter = require("./routers/auth.js");
 const categoriesRouter = require("./routers/categories.js");
 const messagesRouter = require("./routers/messages.js");
+const errorHandler = require("./middlewares/errorHandler.js");
+const notFound = require("./middlewares/notFound.js");
 
 app.use(cors());
 
@@ -25,6 +27,10 @@ app.use('/categories', categoriesRouter);
 
 // Messaggi
 app.use('/messages', messagesRouter);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 app.listen(port, host, () => {
     console.log(`Server attivo su http://${host}:${port}`);

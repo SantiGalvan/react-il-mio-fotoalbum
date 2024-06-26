@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const errorHandler = require("../middlewares/errorHandler.js");
 
 const store = async (req, res) => {
     const { content, email } = req.body;
@@ -16,8 +17,7 @@ const store = async (req, res) => {
         res.status(200).send(message);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -28,8 +28,7 @@ const index = async (req, res) => {
         res.status(200).send(messages);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -42,8 +41,7 @@ const show = async (req, res) => {
         res.status(200).send(message);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error')
+        errorHandler(err, req, res);
     }
 }
 
@@ -56,8 +54,7 @@ const destroy = async (req, res) => {
         res.status(200).send(`Messaggio ${message.content} con id:${id} eliminato con successo`);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 

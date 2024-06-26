@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
-const generateSlug = require("../utils/slug");
 const prisma = new PrismaClient();
+const generateSlug = require("../utils/slug");
+const errorHandler = require("../middlewares/errorHandler.js");
 
 const store = async (req, res) => {
     const { label, color } = req.body;
@@ -22,8 +23,7 @@ const store = async (req, res) => {
         res.status(200).send(category);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -34,8 +34,7 @@ const index = async (req, res) => {
         res.status(200).send(categories);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -48,8 +47,7 @@ const show = async (req, res) => {
         res.status(200).send(category);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -77,8 +75,7 @@ const update = async (req, res) => {
         res.status(200).send(category);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        errorHandler(err, req, res);
     }
 }
 
@@ -91,8 +88,7 @@ const destroy = async (req, res) => {
         res.status(200).send(`Categoria ${category.label} con slug:${slug} eliminata con successo`);
 
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error')
+        errorHandler(err, req, res);
     }
 }
 
