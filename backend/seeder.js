@@ -329,16 +329,9 @@ const photos = [
     },
 ];
 
-// Categorie
+Categorie
 prisma.category.createMany({
     data: categories
-})
-    .then()
-    .catch(err => console.error(err));
-
-// Messaggi
-prisma.message.createMany({
-    data: messages
 })
     .then()
     .catch(err => console.error(err));
@@ -361,10 +354,17 @@ users.forEach(async (user) => {
     prisma.user.create({ data }).then().catch(err => console.error(err));
 })
 
+// Messaggi
+prisma.message.createMany({
+    data: messages
+})
+    .then()
+    .catch(err => console.error(err));
+
 // Photos
 photos.forEach(photo => {
 
-    const { id, title, slug, description, image, visible, userId } = photo;
+    const { id, title, slug, description, image, visible, userId, categories } = photo;
 
     const data = {
         id,
@@ -374,7 +374,7 @@ photos.forEach(photo => {
         description,
         visible,
         userId,
-        categories: { connect: categories.map(category => (category.id)) }
+        categories: { connect: categories.map(id => ({ id })) }
     }
 
     prisma.photo.create({ data }).then().catch(err => console.error(err));
