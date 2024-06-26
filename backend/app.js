@@ -5,7 +5,7 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
 const cors = require("cors");
-const photosRouter = require("./routers/photo.js");
+const photosRouter = require("./routers/photos.js");
 
 app.use(cors());
 
