@@ -12,6 +12,6 @@ router.get('/', messagesController.index);
 router.get('/:id', messagesController.show);
 
 // Rotta Delete
-router.delete('/:slug', messagesController.destroy);
+router.delete('/:id', messagesController.destroy);
 
 module.exports = router;
