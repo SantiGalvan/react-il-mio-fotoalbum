@@ -154,7 +154,7 @@ const update = async (req, res) => {
             description,
             visible: req.body.visible ? req.body.visible : false,
             categories: {
-                connect: categories.map(id => ({ id: parseInt(id) }))
+                set: categories.map(id => ({ id: parseInt(id) }))
             }
         }
 
