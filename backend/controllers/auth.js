@@ -71,6 +71,8 @@ const index = async (req, res) => {
             delete user.password;
         });
 
+        res.status(200).json(users);
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');

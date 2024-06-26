@@ -9,6 +9,6 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 
 // Rotta Index
-router.post('/users', authController.index);
+router.get('/users', authController.index);
 
 module.exports = router;
