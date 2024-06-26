@@ -107,7 +107,35 @@ const index = async (req, res) => {
     }
 }
 
-const show = async (req, res) => { }
+const show = async (req, res) => {
+    try {
+        const { slug } = req.params;
+
+        const photo = await prisma.photo.findUnique({
+            where: { slug },
+            include: {
+                categories: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true
+                    }
+                },
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+
+        res.status(200).send(photo);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 const update = async (req, res) => { }
 
