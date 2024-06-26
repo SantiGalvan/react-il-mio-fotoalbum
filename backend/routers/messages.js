@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const messagesController = require("../controllers/messages.js");
+const validator = require('../middlewares/validator.js');
+const { bodyData } = require("../validations/messages.js");
 
 // Rotta Store
-router.post('/', messagesController.store);
+router.post('/', validator(bodyData), messagesController.store);
 
 // Rotta Index
 router.get('/', messagesController.index);
