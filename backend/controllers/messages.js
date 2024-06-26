@@ -47,7 +47,19 @@ const show = async (req, res) => {
     }
 }
 
-const destroy = async (req, res) => { }
+const destroy = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+
+        const message = await prisma.message.delete({ where: { id: parseInt(id) } });
+        res.status(200).send(`Messaggio ${message.content} con id:${id} eliminato con successo`);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 
 module.exports = { store, index, show, destroy }
