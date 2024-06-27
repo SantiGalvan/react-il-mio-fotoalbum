@@ -77,4 +77,17 @@ const index = async (req, res) => {
     }
 }
 
-module.exports = { register, login, index }
+const destroy = async (req, res) => {
+    try {
+
+        const { email } = req.params;
+
+        const user = await prisma.user.delete({ where: { email } });
+        res.status(200).send(`User ${user.name} con email: ${email} eliminato con successo`);
+
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
+}
+
+module.exports = { register, login, index, destroy }
