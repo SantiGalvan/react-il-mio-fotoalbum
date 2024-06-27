@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import logoImg from "../../assets/img/logo-navbar.jpg";
 
 const Navbar = () => {
@@ -14,10 +15,10 @@ const Navbar = () => {
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="#">Home</a>
+                                    <NavLink className="nav-link" to={'/'}>Home</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Foto</a>
+                                    <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">Categorie</a>
