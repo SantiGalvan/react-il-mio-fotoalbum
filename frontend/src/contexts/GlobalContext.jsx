@@ -26,10 +26,10 @@ const GlobalProvider = ({ children }) => {
 
 const useGlobal = () => {
     const value = useContext(GlobalContext);
-    //se non sono in un consumer del GlobalContext.Provider, value sarà undefined
-    if (value === undefined) {
-        throw new Error('Non sei dentro al Global Provider!');
-    }
+
+    // Se non sono in un consumer del GlobalContext.Provider, value sarà undefined
+    if (value === undefined) throw new Error('Non sei dentro al Global Provider!');
+
     return value;
 }
 
