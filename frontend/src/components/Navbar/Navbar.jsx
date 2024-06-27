@@ -7,8 +7,10 @@ const Navbar = () => {
     const { user, isLogged } = useAuth();
 
     const logo = () => {
-        const logo = user?.name.split('').filter(l => l !== l.toLowerCase());
-        return logo;
+        if (user.name) {
+            const logo = user.name.split('').filter(l => l !== l.toLowerCase());
+            return logo;
+        }
     }
 
     const colorLogo = () => {
