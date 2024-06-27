@@ -40,7 +40,7 @@ const Navbar = () => {
                                     <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
                                 </li>
                                 {user?.isAdmin && <li className="nav-item">
-                                    <a className="nav-link" href="#">Categorie</a>
+                                    <NavLink className="nav-link" to={'/categories'}>Categorie</NavLink>
                                 </li>}
                                 {user?.isSuperAdmin && <li className="nav-item">
                                     <a className="nav-link" href="#">Users</a>
