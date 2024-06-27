@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Home from "./pages/Home";
 import PhotosIndex from "./pages/PhotosPages/PhotosIndex";
+import Login from "./pages/Auth/Login";
+import AuthPage from "./middlewares/AuthPage";
+import Dashboard from "./pages/Auth/Dashboard";
 
 const App = () => {
   return (
@@ -18,8 +21,19 @@ const App = () => {
 
           {/* Index */}
           <Route index element={<PhotosIndex />} />
+
         </Route>
 
+        {/* Rotta Login */}
+        <Route path="login" element={<Login />} />
+
+      </Route>
+
+      {/* Rotte private */}
+      <Route path="/" element={<AuthPage><DefaultLayout /></AuthPage>}>
+
+        {/* Dashboard dell'utente */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
 
     </Routes>
