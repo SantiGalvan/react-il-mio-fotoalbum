@@ -23,7 +23,7 @@ const Register = () => {
 
     return (
         <section className="container">
-            {alertOpen && <Alert errors={registerError?.message} closeAlert={() => setAlertOpen(false)} />}
+            {alertOpen && <Alert generalError={registerError} closeAlert={() => setAlertOpen(false)} />}
 
             <h1 className="text-center mb-4">Registrati</h1>
             <FormRegister submitForm={handleRegister} />
