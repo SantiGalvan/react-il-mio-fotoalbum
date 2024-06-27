@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
 
         } catch (err) {
             const { errors } = err.response.data;
-            const error = new Error(errors ? errors : 'Errore di login');
+            const error = new Error(errors ? 'Errore di login' : err.response.data);
             error.errors = errors;
             throw error;
         }
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
         } catch (err) {
 
             const { errors } = err.response.data;
-            const error = new Error(errors ? errors : 'Errore di register');
+            const error = new Error(errors ? 'Errore di register' : err.response.data);
             error.errors = errors;
             throw error;
         }
