@@ -1,2 +1,21 @@
+@use './components/navbar.scss';
+
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
+
+main {
+    height: calc(100vh - 80px);
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #000000d4;
+    }
+}
