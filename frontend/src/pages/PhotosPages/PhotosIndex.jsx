@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosClient.js";
+import PhotoCard from "../../components/Cards/PhotoCard.jsx";
 
 const PhotosIndex = () => {
 
@@ -17,13 +18,21 @@ const PhotosIndex = () => {
 
     return (
         <section className="container">
-            <h1 className="text-center">Foto</h1>
-            <div className="row">
-                {photos?.map(({ id, title }) => (
+            <h1 className="text-center mb-4">Foto</h1>
+            <div className="row g-5">
+
+                {photos?.map(({ id, title, image, categories }) => (
                     <div key={`photo-${id}`} className="col-4">
-                        <p>{title}</p>
+
+                        <PhotoCard
+                            title={title}
+                            image={image}
+                            categories={categories}
+                        />
+
                     </div>
                 ))}
+
             </div>
         </section>
     )
