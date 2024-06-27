@@ -6,6 +6,7 @@
 main {
     height: calc(100vh - 80px);
     overflow: auto;
+    background-color: #e5e5e5;
 
     &::-webkit-scrollbar {
         width: 10px;
@@ -17,5 +18,9 @@ main {
 
     &::-webkit-scrollbar-thumb {
         background: #000000d4;
+    }
+
+    section {
+        padding: 20px 0;
     }
 }
