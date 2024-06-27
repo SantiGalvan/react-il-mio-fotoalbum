@@ -33,4 +33,23 @@ const validationCategorySlug = {
     }
 }
 
-module.exports = { validationSlug, validationCategorySlug };
+const validationMessageId = {
+    id: {
+        in: ["params"],
+        isInt: {
+            errorMessage: "Id deve essere un numero intero",
+        },
+        custom: {
+            options: async (value) => {
+                const id = await prisma.message.findUnique({ where: { id: parseInt(value) } });
+
+                if (!id) throw new Error(`Non esiste un messaggio con id:${value}`);
+
+                return true;
+            }
+        },
+        toInt: true,
+    }
+}
+
+module.exports = { validationSlug, validationCategorySlug, validationMessageId };
