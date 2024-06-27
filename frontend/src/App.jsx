@@ -9,6 +9,7 @@ import Register from "./pages/Auth/Register";
 import AuthAdmin from "./middlewares/AuthAdmin";
 import CategoriesIndex from "./pages/CategoriesPages/CategoriesIndex";
 import Users from "./pages/Auth/Users";
+import AuthSuperAdmin from "./middlewares/AuthSuperAdmin";
 
 const App = () => {
   return (
@@ -46,7 +47,13 @@ const App = () => {
       </Route>
 
       {/* Rotte private degli Admin */}
-      <Route path="/" element={<AuthAdmin><DefaultLayout /></AuthAdmin>} >
+      <Route path="/" element={
+        <AuthPage>
+          <AuthAdmin>
+            <DefaultLayout />
+          </AuthAdmin>
+        </AuthPage>
+      } >
 
         {/* Rotta delle categorie */}
         <Route path="categories" element={<CategoriesIndex />} />
@@ -54,7 +61,7 @@ const App = () => {
       </Route>
 
       {/* Rotte private del super Admin */}
-      <Route path="/" element={<AuthAdmin><DefaultLayout /></AuthAdmin>} >
+      <Route path="/" element={<AuthPage><AuthSuperAdmin><DefaultLayout /></AuthSuperAdmin></AuthPage>} >
 
         {/* Rotta degli Users */}
         <Route path="users" element={<Users />} />
