@@ -28,34 +28,46 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid px-5 nav">
                     <div className="d-flex">
+
                         <Link className="navbar-brand" to={'/'}>
                             <figure>
                                 <img src={logoImg} alt="Logo" className="img-fluid rounded-pill" />
                             </figure>
                         </Link>
+
                         <div className="collapse navbar-collapse">
+
                             <ul className="navbar-nav">
+
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to={'/'}>Home</NavLink>
                                 </li>
+
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
                                 </li>
+
                                 {user?.isAdmin && <li className="nav-item">
                                     <NavLink className="nav-link" to={'/categories'}>Categorie</NavLink>
                                 </li>}
+
                                 {user?.isSuperAdmin && <li className="nav-item">
-                                    <a className="nav-link" href="#">Users</a>
+                                    <NavLink className="nav-link" to={'/users'}>Utenti</NavLink>
                                 </li>}
+
                                 {!isLogged && <li className="nav-item">
                                     <a className="nav-link" href="#">Contattaci</a>
                                 </li>}
+
                             </ul>
+
                         </div>
                     </div>
                     <div className="d-flex">
                         <ul className="navbar-nav">
+
                             {!isLogged && <>
+
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to={'/login'}>Login</NavLink>
                                 </li>
@@ -63,6 +75,7 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to={'/register'}>Register</NavLink>
                                 </li>
+
                             </>}
 
                             {isLogged && <li className="nav-item">
@@ -71,6 +84,7 @@ const Navbar = () => {
                                     {user.name}
                                 </NavLink>
                             </li>}
+
                         </ul>
                     </div>
                 </div>
