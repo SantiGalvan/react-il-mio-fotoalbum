@@ -13,11 +13,13 @@ const PhotoCard = ({ title, image, categories }) => {
                 <h2>{title}</h2>
 
                 <div className={`${photoCardStyle.badgeContainer} d-flex align-items-center justify-content-center`}>
+
                     {categories.map(({ id, label, color }) =>
                         <div key={`category-${id}`}>
                             <span className='badge me-2' style={{ backgroundColor: color }} >{label}</span>
                         </div>
                     )}
+
                 </div>
                 <div className='d-flex justify-content-center'>
                     <button className={photoCardStyle.dataBtn}><FaEye />Vedi</button>
