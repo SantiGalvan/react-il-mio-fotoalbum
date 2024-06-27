@@ -65,7 +65,7 @@ const index = async (req, res) => {
         const where = {}
 
         // Parametri presi dalla query
-        const { title, visible, page = 1, limit = 10 } = req.query;
+        const { title, visible, page = 1, limit = 10, user } = req.query;
 
         // Se c'è il titolo, filtro
         if (title) {
@@ -85,6 +85,21 @@ const index = async (req, res) => {
         const totalPages = Math.ceil(totalItems / limit);
 
         if (page > totalPages) throw new Error(`La pagina ${page} non esiste`);
+
+        let userId;
+
+        if (req.headers.authorization) {
+
+            const token = req.headers.authorization.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const userEmail = decoded.email;
+            const user = await prisma.user.findUnique({ where: { email: userEmail } });
+            userId = user.id;
+        }
+
+        if (user === 'true' && userId) {
+            where.userId = userId
+        }
 
         const photos = await prisma.photo.findMany({
             where,
