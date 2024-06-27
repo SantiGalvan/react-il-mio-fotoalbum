@@ -70,7 +70,7 @@ const index = async (req, res) => {
         const where = {}
 
         // Parametri presi dalla query
-        const { title, visible, page = 1, limit = 10, user } = req.query;
+        const { title, visible, page = 1, limit = 9, user } = req.query;
 
         // Se c'è il titolo, filtro
         if (title) {
