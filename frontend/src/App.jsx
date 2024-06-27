@@ -5,6 +5,7 @@ import PhotosIndex from "./pages/PhotosPages/PhotosIndex";
 import Login from "./pages/Auth/Login";
 import AuthPage from "./middlewares/AuthPage";
 import Dashboard from "./pages/Auth/Dashboard";
+import Register from "./pages/Auth/Register";
 
 const App = () => {
   return (
@@ -26,6 +27,9 @@ const App = () => {
 
         {/* Rotta Login */}
         <Route path="login" element={<Login />} />
+
+        {/* Rotta Register */}
+        <Route path="register" element={<Register />} />
 
       </Route>
 
