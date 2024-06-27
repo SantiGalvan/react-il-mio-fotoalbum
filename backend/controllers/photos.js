@@ -1,11 +1,19 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const jwt = require("jsonwebtoken");
 const generateSlug = require("../utils/slug");
 const errorHandler = require("../middlewares/errorHandler.js");
 
 const store = async (req, res) => {
 
     const { title, description, categories } = req.body;
+
+    // Inserimento dell'utente in automatico recuperando l'id dal token
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userEmail = decoded.email;
+    const user = await prisma.user.findUnique({ where: { email: userEmail } });
+    const userId = user.id;
 
     const photos = await prisma.photo.findMany();
     const slugs = photos.map(photo => photo.slug);
@@ -17,6 +25,7 @@ const store = async (req, res) => {
         slug,
         image: '',
         description,
+        userId,
         visible: req.body.visible ? req.body.visible : false,
         categories: {
             connect: categories.map(category => ({ id: category.id }))
