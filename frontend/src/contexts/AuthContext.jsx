@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
 
             setUser(response.data);
             localStorage.setItem('accessToken', response.token);
-            navigate('/');
+            navigate('/dashboard');
 
         } catch (err) {
 
