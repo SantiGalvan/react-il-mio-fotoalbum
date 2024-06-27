@@ -3,6 +3,10 @@ const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
 const generateSlug = require("../utils/slug");
 const errorHandler = require("../middlewares/errorHandler.js");
+const { PORT, HOST } = process.env;
+const dotenv = require("dotenv");
+const deletePic = require("../utils/deletePic.js");
+dotenv.config();
 
 const store = async (req, res) => {
 
@@ -23,7 +27,7 @@ const store = async (req, res) => {
     const data = {
         title,
         slug,
-        image: '',
+        image: req.file ? `${HOST}:${PORT}/photos/${req.file.filename}` : '',
         description,
         userId,
         visible: req.body.visible ? req.body.visible : false,
@@ -54,6 +58,7 @@ const store = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
+        if (req.file) deletePic('photos', req.file.filename);
         errorHandler(err, req, res); (err);
     }
 
@@ -215,6 +220,10 @@ const destroy = async (req, res) => {
     try {
         const { slug } = req.params;
         const photo = await prisma.photo.delete({ where: { slug } });
+
+        const imageName = photo.image.replace('localhost:3000/photos/', '');
+
+        if (photo.image) deletePic('photos', imageName);
 
         res.status(200).json(`Photo ${photo.title} con slug:${slug} eliminata con successo`);
 
