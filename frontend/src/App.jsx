@@ -6,6 +6,8 @@ import Login from "./pages/Auth/Login";
 import AuthPage from "./middlewares/AuthPage";
 import Dashboard from "./pages/Auth/Dashboard";
 import Register from "./pages/Auth/Register";
+import AuthAdmin from "./middlewares/AuthAdmin";
+import CategoriesIndex from "./pages/CategoriesPages/CategoriesIndex";
 
 const App = () => {
   return (
@@ -38,6 +40,16 @@ const App = () => {
 
         {/* Dashboard dell'utente */}
         <Route path="/dashboard" element={<Dashboard />} />
+
+
+      </Route>
+
+      {/* Rotte private degli amministratori */}
+      <Route path="/" element={<AuthAdmin><DefaultLayout /></AuthAdmin>} >
+
+        {/* Rotta delle categorie */}
+        <Route path="categories" element={<CategoriesIndex />} />
+
       </Route>
 
     </Routes>
