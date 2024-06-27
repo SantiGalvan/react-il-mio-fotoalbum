@@ -13,7 +13,7 @@ router.post('/register', validator(registerBody), authController.register);
 router.post('/login', validator(loginBody), authController.login);
 
 // Validatore del Token e del Super Admin
-router.use('/users', [validationToken, authSuperAdmin])
+router.use('/users', [validationToken, authSuperAdmin]);
 
 // Rotta Index
 router.get('/users', authController.index);
