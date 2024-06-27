@@ -27,13 +27,17 @@ const registerBody = {
     },
     name: {
         in: ["body"],
-        isString: {
-            errorMessage: 'Il nome non può contenere solo da numeri',
-            bail: true
-        },
+        optional: true,
         isLength: {
             errorMessage: 'Il nome deve contenere almeno 3 caratteri',
             options: { min: 3 }
+        },
+        custom: {
+            options: (value) => {
+                if (!isNaN(parseInt(value))) throw new Error('Il nome non può contenere solo numeri');
+
+                return true;
+            }
         },
         trim: true,
     },
