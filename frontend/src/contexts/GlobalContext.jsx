@@ -18,7 +18,7 @@ const GlobalProvider = ({ children }) => {
     }, []);
 
     return (
-        <GlobalContext.Provider value={categories}>
+        <GlobalContext.Provider value={{ categories }}>
             {children}
         </GlobalContext.Provider>
     )
