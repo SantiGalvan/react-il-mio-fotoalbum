@@ -4,14 +4,12 @@ const CategoriesIndex = () => {
 
     const { categories } = useGlobal();
 
-    console.log(categories);
-
     return (
         <section className="container">
             <h1 className="text-center">Categorie</h1>
-            <div className="row">
+            <div className="row my-4">
                 {categories?.map(({ id, label, color }) => (
-                    <div key={`category-${id}`} className="col-3">{label}</div>
+                    <div key={`category-${id}`} className="col-2">{label}</div>
                 ))}
             </div>
         </section>
