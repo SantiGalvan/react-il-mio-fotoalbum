@@ -182,7 +182,7 @@ const update = async (req, res) => {
         const data = {
             title,
             slug: newSlug,
-            image: '',
+            image: req.file ? `${HOST}:${PORT}/photos/${req.file.filename}` : '',
             description,
             visible: req.body.visible ? req.body.visible : false,
             categories: {
@@ -212,7 +212,8 @@ const update = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
-        errorHandler(err, req, res); (err);
+        if (req.file) deletePic('photos', req.file.filename);
+        errorHandler(err, req, res);
     }
 }
 
