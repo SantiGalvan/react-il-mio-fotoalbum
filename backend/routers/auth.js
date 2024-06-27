@@ -18,6 +18,9 @@ router.use('/users', [validationToken, authSuperAdmin])
 // Rotta Index
 router.get('/users', authController.index);
 
+// Rotta Patch
+router.patch('/users/:email', authController.patch);
+
 // Rotta Delete
 router.delete('/users/:email', authController.destroy);
 

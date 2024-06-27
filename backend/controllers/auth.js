@@ -77,6 +77,30 @@ const index = async (req, res) => {
     }
 }
 
+const patch = async (req, res) => {
+    try {
+
+        const { email } = req.params;
+
+        const { isAdmin } = req.body;
+
+        const data = { isAdmin: isAdmin === 'true' ? true : false }
+
+        const user = await prisma.user.update({
+            where: { email },
+            data
+        });
+
+        delete user.id;
+        delete user.password;
+
+        res.status(200).send(user);
+
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
+}
+
 const destroy = async (req, res) => {
     try {
 
@@ -90,4 +114,4 @@ const destroy = async (req, res) => {
     }
 }
 
-module.exports = { register, login, index, destroy }
+module.exports = { register, login, index, destroy, patch }
