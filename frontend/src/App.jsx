@@ -16,6 +16,7 @@ import PhotoEdit from "./pages/PhotosPages/PhotoEdit";
 import CategoryCreate from "./pages/CategoriesPages/CategoryCreate";
 import CategoryEdit from "./pages/CategoriesPages/CategoriesEdit";
 import MessageCreate from "./pages/Messages/MessageCreate";
+import MessagesIndex from "./pages/Messages/MessagesIndex";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
         {/* Rotta Register */}
         <Route path="register" element={<Register />} />
 
+        {/* Rotta per creare i messaggi */}
         <Route path="contacts" element={<MessageCreate />} />
 
       </Route>
@@ -68,6 +70,9 @@ const App = () => {
 
         {/* Dashboard dell'utente */}
         <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Rotta dei messaggi */}
+        <Route path="/messages" element={<MessagesIndex />} />
 
       </Route>
 
