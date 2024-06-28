@@ -11,6 +11,7 @@ import CategoriesIndex from "./pages/CategoriesPages/CategoriesIndex";
 import Users from "./pages/Auth/Users";
 import AuthSuperAdmin from "./middlewares/AuthSuperAdmin";
 import PhotoCreate from "./pages/PhotosPages/PhotoCreate";
+import PhotoShow from "./pages/PhotosPages/PhotoShow";
 
 const App = () => {
   return (
@@ -27,6 +28,9 @@ const App = () => {
 
           {/* Index */}
           <Route index element={<PhotosIndex />} />
+
+          {/* Show */}
+          <Route path=":slug" element={<PhotoShow />} />
 
         </Route>
 
