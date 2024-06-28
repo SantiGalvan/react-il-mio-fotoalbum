@@ -52,7 +52,7 @@ const PhotoForm = ({ onSubmit, dataEdit }) => {
                                     type="text"
                                     className="form-control"
                                     id="title"
-                                    placeholder="Titolo del post"
+                                    placeholder="Titolo della fotografia"
                                     name="title"
                                     value={formData.title}
                                     onChange={(e) => handleField('title', e.target.value)}
