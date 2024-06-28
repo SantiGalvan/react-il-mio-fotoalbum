@@ -14,6 +14,8 @@ const notFound = require("./middlewares/notFound.js");
 
 app.use(cors());
 
+app.use(express.static("public"));
+
 app.use(express.json());
 
 // Auth
@@ -32,6 +34,6 @@ app.use(notFound);
 
 app.use(errorHandler);
 
-app.listen(port, host, () => {
-    console.log(`Server attivo su http://${host}:${port}`);
+app.listen(port, () => {
+    console.log(`Server attivo su ${host}:${port}`);
 });
