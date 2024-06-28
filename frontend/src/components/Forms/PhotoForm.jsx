@@ -3,11 +3,11 @@ import { useGlobal } from '../../contexts/GlobalContext';
 import { TiPlus as Plus } from "react-icons/ti";
 import { BsArrowClockwise } from "react-icons/bs";
 
-const PhotoForm = ({ onSubmit }) => {
+const PhotoForm = ({ onSubmit, dataEdit }) => {
 
     const { categories } = useGlobal();
 
-    const initialData = {
+    const initialData = dataEdit || {
         title: '',
         description: '',
         image: '',
