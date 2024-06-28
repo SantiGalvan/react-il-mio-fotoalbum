@@ -11,7 +11,7 @@ const authAdmin = require("../middlewares/authAdmin.js");
 router.post('/', [validationToken, authAdmin, validator(bodyData)], categoriesController.store);
 
 // Rotta Index
-router.get('/', authAdmin, categoriesController.index);
+router.get('/', categoriesController.index);
 
 // Validatore dello slug delle categorie
 router.use('/:slug', validator(validationCategorySlug));
