@@ -23,11 +23,13 @@ const PhotosIndex = () => {
 
     return (
         <section className="container">
+
             <div className={user ? "d-flex align-items-center justify-content-between" : ""}>
                 {user && <div>Filtri</div>}
                 <h1 className="text-center mb-4">Foto</h1>
                 {user && <Link to={'/photos/create'} className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</Link>}
             </div>
+
             <div className="row g-5">
 
                 {photos?.map(({ id, title, image, categories, slug, user }) => (

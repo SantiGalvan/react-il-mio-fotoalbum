@@ -19,6 +19,7 @@ const PhotoCreate = () => {
 
     return (
         <section className="container">
+
             <div className="mb-4 d-flex align-items-center justify-content-between">
                 <button
                     onClick={() => { navigate(-1) }}
@@ -28,7 +29,9 @@ const PhotoCreate = () => {
                 </button>
                 <h1>Crea la tua Foto</h1>
             </div>
+
             <PhotoForm onSubmit={createPhoto} />
+
         </section>
     )
 }
