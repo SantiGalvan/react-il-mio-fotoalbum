@@ -89,6 +89,15 @@ const index = async (req, res) => {
         const totalItems = await prisma.photo.count({ where });
         const totalPages = Math.ceil(totalItems / limit);
 
+        if (totalPages === 0) {
+            return res.json({
+                data: [],
+                page,
+                totalItems,
+                totalPages
+            });
+        }
+
         if (page > totalPages) throw new Error(`La pagina ${page} non esiste`);
 
         let userId;
