@@ -65,11 +65,9 @@ const index = async (req, res) => {
                     }
                 }
             });
-
-            res.status(200).send(messages);
-
         }
 
+        res.status(200).send(messages);
 
     } catch (err) {
         errorHandler(err, req, res);
