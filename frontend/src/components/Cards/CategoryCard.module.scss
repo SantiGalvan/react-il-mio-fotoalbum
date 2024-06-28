@@ -28,3 +28,18 @@ button.btn {
         transform: scale(1.05);
     }
 }
+
+a.btn {
+    transition: all 0.3s linear;
+    border: 1px solid transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    &:hover {
+        border: 1px solid #2b2d42;
+        transform: scale(1.05);
+    }
+}
