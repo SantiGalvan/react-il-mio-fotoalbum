@@ -171,9 +171,18 @@ const show = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        const where = {}
         const { slug } = req.params;
+        where.slug = slug;
 
         const { title, description, categories } = req.body;
+
+        // Inserimento dell'utente in automatico recuperando l'id dal token
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userEmail = decoded.email;
+        const user = await prisma.user.findUnique({ where: { email: userEmail } });
+        const userId = user.id;
 
         const photos = await prisma.photo.findMany();
         const slugs = photos.map(photo => photo.slug);
@@ -190,24 +199,52 @@ const update = async (req, res) => {
             }
         }
 
-        const photo = await prisma.photo.update({
-            where: { slug },
-            data,
-            include: {
-                categories: {
-                    select: {
-                        id: true,
-                        label: true,
-                        color: true
-                    }
-                },
-                user: {
-                    select: {
-                        name: true
+        let photo;
+
+        if (user.isSuperAdmin) {
+            photo = await prisma.photo.update({
+                where,
+                data,
+                include: {
+                    categories: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true
+                        }
+                    },
+                    user: {
+                        select: {
+                            name: true
+                        }
                     }
                 }
-            }
-        });
+            });
+
+        } else {
+
+            where.userId = userId;
+
+            photo = await prisma.photo.update({
+                where,
+                data,
+                include: {
+                    categories: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true
+                        }
+                    },
+                    user: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            });
+        }
+
 
         res.status(200).send(photo);
 
@@ -219,12 +256,39 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
     try {
+
+        const where = {}
+
+        // Inserimento dell'utente in automatico recuperando l'id dal token
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userEmail = decoded.email;
+        const user = await prisma.user.findUnique({ where: { email: userEmail } });
+        const userId = user.id;
+
         const { slug } = req.params;
-        const photo = await prisma.photo.delete({ where: { slug } });
+        where.slug = slug;
 
-        const imageName = photo.image.replace('localhost:3000/photos/', '');
+        let photo;
 
-        if (photo.image) deletePic('photos', imageName);
+        if (user.isSuperAdmin) {
+            photo = await prisma.photo.delete({ where });
+        } else {
+
+            where.userId = userId;
+
+            photo = await prisma.photo.delete({ where });
+
+        }
+
+        let imageName;
+
+        if (photo.image.includes('localhost:3000/photos/')) {
+            imageName = photo.image.replace('localhost:3000/photos/', '');
+
+            deletePic('photos', imageName);
+        }
+
 
         res.status(200).json(`Photo ${photo.title} con slug:${slug} eliminata con successo`);
 
