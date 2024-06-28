@@ -15,6 +15,7 @@ import PhotoShow from "./pages/PhotosPages/PhotoShow";
 import PhotoEdit from "./pages/PhotosPages/PhotoEdit";
 import CategoryCreate from "./pages/CategoriesPages/CategoryCreate";
 import CategoryEdit from "./pages/CategoriesPages/CategoriesEdit";
+import MessageCreate from "./pages/Messages/MessageCreate";
 
 const App = () => {
   return (
@@ -42,6 +43,8 @@ const App = () => {
 
         {/* Rotta Register */}
         <Route path="register" element={<Register />} />
+
+        <Route path="contacts" element={<MessageCreate />} />
 
       </Route>
 
