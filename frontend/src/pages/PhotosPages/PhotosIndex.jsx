@@ -3,8 +3,11 @@ import axios from "../../utils/axiosClient.js";
 import PhotoCard from "../../components/Cards/PhotoCard.jsx";
 import { FaPlus as Plus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 const PhotosIndex = () => {
+
+    const { user } = useAuth();
 
     const [photos, setPhotos] = useState();
 
@@ -20,10 +23,10 @@ const PhotosIndex = () => {
 
     return (
         <section className="container">
-            <div className="d-flex align-items-center justify-content-between">
-                <div>Filtri</div>
+            <div className={user ? "d-flex align-items-center justify-content-between" : ""}>
+                {user && <div>Filtri</div>}
                 <h1 className="text-center mb-4">Foto</h1>
-                <Link to={'/photos/create'} className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</Link>
+                {user && <Link to={'/photos/create'} className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</Link>}
             </div>
             <div className="row g-5">
 
