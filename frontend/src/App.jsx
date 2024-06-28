@@ -13,6 +13,7 @@ import AuthSuperAdmin from "./middlewares/AuthSuperAdmin";
 import PhotoCreate from "./pages/PhotosPages/PhotoCreate";
 import PhotoShow from "./pages/PhotosPages/PhotoShow";
 import PhotoEdit from "./pages/PhotosPages/PhotoEdit";
+import CategoryCreate from "./pages/CategoriesPages/CategoryCreate";
 
 const App = () => {
   return (
@@ -64,7 +65,6 @@ const App = () => {
         {/* Dashboard dell'utente */}
         <Route path="/dashboard" element={<Dashboard />} />
 
-
       </Route>
 
       {/* Rotte private degli Admin */}
@@ -77,7 +77,15 @@ const App = () => {
       } >
 
         {/* Rotta delle categorie */}
-        <Route path="categories" element={<CategoriesIndex />} />
+        <Route path="categories" >
+
+          {/* Index delle categorie */}
+          <Route index element={<CategoriesIndex />} />
+
+          {/* Create delle categorie */}
+          <Route path="create" element={<CategoryCreate />} />
+
+        </Route>
 
       </Route>
 
