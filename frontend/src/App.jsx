@@ -10,6 +10,7 @@ import AuthAdmin from "./middlewares/AuthAdmin";
 import CategoriesIndex from "./pages/CategoriesPages/CategoriesIndex";
 import Users from "./pages/Auth/Users";
 import AuthSuperAdmin from "./middlewares/AuthSuperAdmin";
+import PhotoCreate from "./pages/PhotosPages/PhotoCreate";
 
 const App = () => {
   return (
@@ -39,6 +40,14 @@ const App = () => {
 
       {/* Rotte private */}
       <Route path="/" element={<AuthPage><DefaultLayout /></AuthPage>}>
+
+        {/* Rotte delle Foto */}
+        <Route path="photos">
+
+          {/* Create */}
+          <Route path="create" element={<PhotoCreate />} />
+
+        </Route>
 
         {/* Dashboard dell'utente */}
         <Route path="/dashboard" element={<Dashboard />} />
