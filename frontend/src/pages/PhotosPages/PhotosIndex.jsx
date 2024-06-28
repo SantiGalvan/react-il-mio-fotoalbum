@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosClient.js";
 import PhotoCard from "../../components/Cards/PhotoCard.jsx";
+import { FaPlus as Plus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const PhotosIndex = () => {
 
@@ -18,7 +20,11 @@ const PhotosIndex = () => {
 
     return (
         <section className="container">
-            <h1 className="text-center mb-4">Foto</h1>
+            <div className="d-flex align-items-center justify-content-between">
+                <div>Filtri</div>
+                <h1 className="text-center mb-4">Foto</h1>
+                <Link to={'/photos/create'} className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</Link>
+            </div>
             <div className="row g-5">
 
                 {photos?.map(({ id, title, image, categories }) => (
