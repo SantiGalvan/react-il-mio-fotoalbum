@@ -2,9 +2,9 @@ import { useState } from "react";
 import { TiPlus as Plus } from "react-icons/ti";
 import { BsArrowClockwise } from "react-icons/bs";
 
-const CategoryForm = ({ onSubmit }) => {
+const CategoryForm = ({ onSubmit, dataEdit }) => {
 
-    const initialData = {
+    const initialData = dataEdit || {
         label: '',
         color: ''
     }
