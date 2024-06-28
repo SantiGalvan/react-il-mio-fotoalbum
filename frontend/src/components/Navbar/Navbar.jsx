@@ -51,6 +51,10 @@ const Navbar = () => {
                                     <NavLink className="nav-link" to={'/categories'}>Categorie</NavLink>
                                 </li>}
 
+                                {user && <li className="nav-item">
+                                    <NavLink className="nav-link" to={'/messages'}>Messaggi</NavLink>
+                                </li>}
+
                                 {user?.isSuperAdmin && <li className="nav-item">
                                     <NavLink className="nav-link" to={'/users'}>Utenti</NavLink>
                                 </li>}
