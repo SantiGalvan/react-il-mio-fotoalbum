@@ -1,55 +1,60 @@
 .indexCard {
+    padding: 20px;
     background-color: #fff;
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
     box-shadow: 3px 20px 62px -25px #000;
     transition: all 0.3s linear;
+    cursor: pointer;
 
     &:hover {
         transform: scale(1.03);
     }
 
     figure {
-        height: 200px;
-        border-radius: 20px 20px 0 0;
+        height: 300px;
+        border-radius: 10px;
         overflow: hidden;
     }
 
     img {
-        transition: all 0.3s linear;
-
-        &:hover {
-            transform: scale(1.2);
-        }
+        height: 100%;
+        width: 100%;
     }
 
-    h2 {
-        margin-bottom: 10px;
-        height: 80px;
+    h5,
+    p {
+        font-family: "Playwrite US Trad", cursive;
     }
+
 }
 
 .showCard {
     background-color: #fff;
+    width: 1200px;
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
     box-shadow: 3px 20px 62px -25px #000;
 
     figure {
-        height: 200px;
+        height: 400px;
         border-radius: 20px 20px 0 0;
         overflow: hidden;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
     }
 
-    h2 {
-        margin-bottom: 10px;
-    }
 }
 
 .dataCardBody {
-    padding: 20px 20px;
+    figure {
+        height: 30px;
+    }
 }
 
 .dataBtn {

@@ -4,6 +4,7 @@ import { FaRegEye as FaEye } from "react-icons/fa";
 import { BsFillPencilFill as Pencil } from "react-icons/bs";
 import { FaRegTrashCan as Trash } from "react-icons/fa6";
 import { useAuth } from '../../contexts/AuthContext';
+import polaroid from '../../assets/img/polaroid.png'
 
 const PhotoCard = ({ title, author, description, image, categories, visible, slug, isShow, onDelete }) => {
 
@@ -12,16 +13,26 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
     const navigate = useNavigate();
 
     return (
-        <div className={isShow ? photoCardStyle.showCard : photoCardStyle.indexCard}>
+        <div onClick={() => navigate(`/photos/${slug}`)} className={isShow ? photoCardStyle.showCard : photoCardStyle.indexCard}>
 
             <figure>
-                <img src={`http://${image}`} alt={title} />
+                <img src={`${image}`} alt={title} />
             </figure>
 
             <div className={`${photoCardStyle.dataCardBody} text-center`}>
-                <h2>{title}</h2>
+
+                {isShow ? <h2>{title}</h2> : <h5>{title}</h5>}
                 {isShow && <p>{description}</p>}
-                <p><strong>Autore:</strong> {author?.name}</p>
+
+                <div className='d-flex align-items-center justify-content-center gap-2 pt-2'>
+
+                    <figure>
+                        <img src={polaroid} alt="polaroid" />
+                    </figure>
+
+                    <p>{author?.name}</p>
+
+                </div>
 
                 <div className={`${photoCardStyle.badgeContainer} d-flex align-items-center justify-content-center`}>
 
@@ -48,7 +59,7 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
                     </div> :
 
                     <div className='d-flex justify-content-center gap-3'>
-                        <Link to={`/photos/${slug}`} className={photoCardStyle.dataBtn}><FaEye />Vedi</Link>
+                        {/* <Link to={`/photos/${slug}`} className={photoCardStyle.dataBtn}><FaEye />Vedi</Link> */}
                     </div>
                 }
 
