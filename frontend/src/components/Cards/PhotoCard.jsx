@@ -37,7 +37,7 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
                     <div className='d-flex justify-content-center gap-3'>
                         {(author?.name == user?.name || user?.isSuperAdmin) &&
                             <>
-                                <button className={`${photoCardStyle.dataBtn} btn btn-warning d-flex align-items-center gap-1 my-4`}><Pencil />Modifica</button>
+                                <Link to={`/photos/${slug}/edit`} className={`${photoCardStyle.dataBtn} btn btn-warning d-flex align-items-center gap-1 my-4`}><Pencil />Modifica</Link>
                                 <button
                                     onClick={onDelete}
                                     className={`${photoCardStyle.dataBtn} btn btn-danger d-flex align-items-center gap-1 my-4`}>
