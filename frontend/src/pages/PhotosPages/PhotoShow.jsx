@@ -53,6 +53,7 @@ const PhotoShow = () => {
                 categories={photo?.categories}
                 author={photo?.user}
                 visible={photo?.visible}
+                slug={photo?.slug}
 
                 onDelete={() => setDeleteMode(true)}
             />
