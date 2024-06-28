@@ -39,7 +39,7 @@ const PhotoShow = () => {
         <section className="container">
 
             <button
-                onClick={() => { navigate(-1) }}
+                onClick={() => { navigate('/photos') }}
                 className='btn btn-secondary h-75 d-flex align-items-center gap-1 mb-4'
             >
                 <ArrowLeft />Torna indietro
