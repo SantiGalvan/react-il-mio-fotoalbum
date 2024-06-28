@@ -14,6 +14,7 @@ import PhotoCreate from "./pages/PhotosPages/PhotoCreate";
 import PhotoShow from "./pages/PhotosPages/PhotoShow";
 import PhotoEdit from "./pages/PhotosPages/PhotoEdit";
 import CategoryCreate from "./pages/CategoriesPages/CategoryCreate";
+import CategoryEdit from "./pages/CategoriesPages/CategoriesEdit";
 
 const App = () => {
   return (
@@ -82,8 +83,15 @@ const App = () => {
           {/* Index delle categorie */}
           <Route index element={<CategoriesIndex />} />
 
-          {/* Create delle categorie */}
+          {/* Create della categoria */}
           <Route path="create" element={<CategoryCreate />} />
+
+          <Route path=":slug">
+
+            {/* Edit della categoria */}
+            <Route path="edit" element={<CategoryEdit />} />
+
+          </Route>
 
         </Route>
 
