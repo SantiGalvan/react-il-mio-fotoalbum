@@ -29,8 +29,6 @@ const MessagesTable = ({ messages, onDelete }) => {
 
                             <div className='d-flex gap-2'>
 
-                                <button className='btn btn-sm btn-warning d-flex align-items-center justify-content-center'><Pencil /></button>
-
                                 <button onClick={() => { onDelete(message.id) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
 
                             </div>
