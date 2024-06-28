@@ -71,7 +71,6 @@ const CategoriesIndex = () => {
                     userLogged={user}
                     deleteMode={true}
                     clickDelete={deleteCategory}
-                    deleteCategory={true}
                 />}
 
         </section>
