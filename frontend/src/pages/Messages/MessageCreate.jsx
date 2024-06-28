@@ -3,8 +3,11 @@ import MessageForm from "../../components/Forms/MessageForm";
 import axios from '../../utils/axiosClient.js';
 import { useState } from "react";
 import MessageAlert from "../../components/Alert/MessageAlert.jsx";
+import { useNavigate } from "react-router-dom";
 
 const MessageCreate = () => {
+
+    const navigate = useNavigate();
 
     const [messageSubmit, setMessageSubmit] = useState();
     const [messageError, setMessageError] = useState();
