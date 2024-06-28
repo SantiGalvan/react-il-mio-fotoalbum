@@ -56,7 +56,7 @@ const Navbar = () => {
                                 </li>}
 
                                 {!isLogged && <li className="nav-item">
-                                    <a className="nav-link" href="#">Contattaci</a>
+                                    <NavLink to={'/contacts'} className="nav-link" href="#">Contattaci</NavLink>
                                 </li>}
 
                             </ul>
