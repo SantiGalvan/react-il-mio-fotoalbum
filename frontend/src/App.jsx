@@ -12,6 +12,7 @@ import Users from "./pages/Auth/Users";
 import AuthSuperAdmin from "./middlewares/AuthSuperAdmin";
 import PhotoCreate from "./pages/PhotosPages/PhotoCreate";
 import PhotoShow from "./pages/PhotosPages/PhotoShow";
+import PhotoEdit from "./pages/PhotosPages/PhotoEdit";
 
 const App = () => {
   return (
@@ -47,6 +48,13 @@ const App = () => {
 
         {/* Rotte delle Foto */}
         <Route path="photos">
+
+          <Route path=":slug">
+
+            {/* Edit */}
+            <Route path="edit" element={<PhotoEdit />} />
+
+          </Route>
 
           {/* Create */}
           <Route path="create" element={<PhotoCreate />} />
