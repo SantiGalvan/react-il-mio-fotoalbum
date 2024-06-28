@@ -30,13 +30,15 @@ const PhotosIndex = () => {
             </div>
             <div className="row g-5">
 
-                {photos?.map(({ id, title, image, categories }) => (
+                {photos?.map(({ id, title, image, categories, slug, user }) => (
                     <div key={`photo-${id}`} className="col-4">
 
                         <PhotoCard
                             title={title}
                             image={image}
                             categories={categories}
+                            slug={slug}
+                            author={user}
                         />
 
                     </div>
