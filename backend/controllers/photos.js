@@ -102,6 +102,7 @@ const index = async (req, res) => {
 
         let userId;
 
+        // Ricavo lo user dal Token
         if (req.headers.authorization) {
 
             const token = req.headers.authorization.split(' ')[1];
@@ -111,6 +112,7 @@ const index = async (req, res) => {
             userId = user.id;
         }
 
+        // Filtro dello user
         if (user === 'true' && userId) {
             where.userId = userId
         }
@@ -292,8 +294,8 @@ const destroy = async (req, res) => {
 
         let imageName;
 
-        if (photo.image.includes('localhost:3000/photos/')) {
-            imageName = photo.image.replace('localhost:3000/photos/', '');
+        if (photo.image.includes('http://localhost:3000/photos/')) {
+            imageName = photo.image.replace('http://localhost:3000/photos/', '');
 
             deletePic('photos', imageName);
         }
