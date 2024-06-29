@@ -324,9 +324,9 @@ const photos = [
     },
     {
         id: 20,
-        title: "Tramonto invernale sulla montagna",
-        slug: "tramonto-invernale-sulla-montagna",
-        image: "http://localhost:3000/photos/tramonto-invernale-sulla-montagna.jpg",
+        title: "Tramonto invernale",
+        slug: "tramonto-invernale",
+        image: "http://localhost:3000/photos/tramonto-invernale.jpg",
         description: "Tramonto invernale con colori caldi sulla cima di una montagna innevata",
         visible: true,
         categories: [1, 2],
