@@ -38,37 +38,37 @@ const PhotoShow = () => {
     return (
         <section className="container">
 
-            <button
+            {photo && <> <button
                 onClick={() => { navigate('/photos') }}
                 className='btn btn-secondary h-75 d-flex align-items-center gap-1 mb-4'
             >
                 <ArrowLeft />Torna indietro
             </button>
 
-            <PhotoCard
-                isShow={true}
-                title={photo?.title}
-                description={photo?.description}
-                image={photo?.image}
-                categories={photo?.categories}
-                author={photo?.user}
-                visible={photo?.visible}
-                slug={photo?.slug}
-
-                onDelete={() => setDeleteMode(true)}
-            />
-
-            {deleteMode &&
-                <Modal
-                    isShow={deleteMode}
-                    closeModal={() => setDeleteMode(false)}
+                <PhotoCard
+                    isShow={true}
                     title={photo?.title}
-                    author={photo?.user?.name}
-                    userLogged={user}
-                    deleteMode={true}
-                    clickDelete={() => { deletePhoto(photo.slug) }}
-                />}
+                    description={photo?.description}
+                    image={photo?.image}
+                    categories={photo?.categories}
+                    author={photo?.user}
+                    visible={photo?.visible}
+                    slug={photo?.slug}
 
+                    onDelete={() => setDeleteMode(true)}
+                />
+
+                {deleteMode &&
+                    <Modal
+                        isShow={deleteMode}
+                        closeModal={() => setDeleteMode(false)}
+                        title={photo?.title}
+                        author={photo?.user?.name}
+                        userLogged={user}
+                        deleteMode={true}
+                        clickDelete={() => { deletePhoto(photo.slug) }}
+                    />}
+            </>}
         </section>
     )
 }
