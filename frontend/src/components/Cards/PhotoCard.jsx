@@ -12,8 +12,16 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
 
     const navigate = useNavigate();
 
+    const goShow = () => {
+        if (isShow) {
+            return
+        } else {
+            navigate(`/photos/${slug}`)
+        }
+    }
+
     return (
-        <div onClick={() => navigate(`/photos/${slug}`)} className={isShow ? photoCardStyle.showCard : photoCardStyle.indexCard}>
+        <div onClick={goShow} className={isShow ? photoCardStyle.showCard : photoCardStyle.indexCard}>
 
             <figure>
                 <img src={`${image}`} alt={title} />
@@ -34,7 +42,7 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
 
                 </div>
 
-                <div className={`${photoCardStyle.badgeContainer} d-flex align-items-center justify-content-center`}>
+                <div className={`${photoCardStyle.badgeContainer} d-flex align-items-center justify-content-center ${(author?.name == user?.name || user?.isSuperAdmin) && isShow ? '' : 'mb-4'}`}>
 
                     {categories?.map(({ id, label, color }) =>
                         <div key={`category-${id}`}>
@@ -44,7 +52,8 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
 
                 </div>
 
-                {isShow ?
+                {isShow &&
+
                     <div className='d-flex justify-content-center gap-3'>
                         {(author?.name == user?.name || user?.isSuperAdmin) &&
                             <>
@@ -56,11 +65,8 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
                                 </button>
                             </>
                         }
-                    </div> :
-
-                    <div className='d-flex justify-content-center gap-3'>
-                        {/* <Link to={`/photos/${slug}`} className={photoCardStyle.dataBtn}><FaEye />Vedi</Link> */}
                     </div>
+
                 }
 
             </div>
