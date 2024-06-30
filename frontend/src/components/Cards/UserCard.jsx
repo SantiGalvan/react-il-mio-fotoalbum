@@ -1,7 +1,7 @@
 import userCardStyle from './UserCard.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, onDelete }) => {
 
     const logo = () => {
         if (user.name) {
@@ -44,10 +44,15 @@ const UserCard = ({ user }) => {
                 <p className='mb-0'><strong>Email:</strong></p>
                 <p>{user.email}</p>
                 <div className="d-flex justify-content-center">
-                    <button
-                        className={`${userCardStyle.btn} btn btn-sm btn-danger d-flex align-items-center gap-1`}>
-                        <FaTrashAlt />Elimina
-                    </button>
+
+                    {user.isSuperAdmin ||
+                        <button
+                            onClick={() => onDelete(user.email)}
+                            className={`${userCardStyle.btn} btn btn-sm btn-danger d-flex align-items-center gap-1`}>
+                            <FaTrashAlt />Elimina
+                        </button>
+                    }
+
                 </div>
             </div>
         </div>

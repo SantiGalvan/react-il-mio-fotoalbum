@@ -1,6 +1,6 @@
 import { FaTimes, FaTrashAlt } from "react-icons/fa";
 
-const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, clickLogout, category, message }) => {
+const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, clickLogout, category, message, user }) => {
     return (
         <div className="modal" style={isShow ? { display: 'flex' } : ''} tabIndex="-1">
 
@@ -9,16 +9,30 @@ const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, cli
                 <div className="modal-content">
 
                     <div className="modal-header">
-                        <h2 className="modal-title">{!message ? (title ? title : category[0]?.label) : message[0].content}</h2>
+
+                        {title && <h2 className="modal-title">{title}</h2>}
+
+                        {category && <h2 className="modal-title">{category[0].label}</h2>}
+
+                        {message && <h2 className="modal-title">{message[0].content}</h2>}
+
+                        {user && <h2 className="modal-title">{user[0].name}</h2>}
+
                         <button onClick={closeModal} type="button" className="btn-close"></button>
+
                     </div>
 
                     {deleteMode ?
                         <div className="modal-body text-center">
-                            {author ?
-                                <p>Sicuro di voler eliminare <strong>{title}</strong> di <strong>{author}</strong>?</p> :
-                                <p>Sicuro di voler eliminare <strong>{!message ? (title ? title : category[0]?.label) : message[0].content}</strong>?</p>
-                            }
+
+                            {author && <p>Sicuro di voler eliminare <strong>{title}</strong> di <strong>{author}</strong>?</p>}
+
+                            {category && <p>Sicuro di voler eliminare <strong>{category[0].label}</strong>?</p>}
+
+                            {message && <p>Sicuro di voler eliminare <strong>{message[0].content}</strong>?</p>}
+
+                            {user && <p>Sicuro di voler eliminare <strong>{user[0].name}</strong> con email: <strong>{user[0].email}</strong> e ruolo <strong>{`${user[0].isAdmin ? 'admin' : 'user'}`}</strong>?</p>}
+
                         </div> :
                         <div className="modal-body text-center">
                             <p>Sicuro di voler effettuare il logout?</p>
