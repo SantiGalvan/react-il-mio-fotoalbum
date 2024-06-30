@@ -63,7 +63,14 @@ const login = async (req, res) => {
 const index = async (req, res) => {
     try {
 
-        const users = await prisma.user.findMany();
+        const users = await prisma.user.findMany({
+            orderBy: [{
+                isSuperAdmin: 'desc'
+            },
+            {
+                isAdmin: 'desc'
+            }]
+        });
 
         users.find(user => {
             delete user.id;
