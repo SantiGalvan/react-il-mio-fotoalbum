@@ -31,7 +31,7 @@ const Navbar = () => {
 
                     <div className="d-flex">
 
-                        <Link className="navbar-brand" to={'/'}>
+                        <Link className="navbar-brand" to={`${user ? '/photos' : '/'}`}>
                             <figure>
                                 <img src={logoImg} alt="Logo" className="img-fluid rounded-pill" />
                             </figure>
@@ -39,9 +39,9 @@ const Navbar = () => {
 
                         <ul className="navbar-nav">
 
-                            <li className="nav-item">
+                            {!user && <li className="nav-item">
                                 <NavLink className="nav-link" to={'/'}>Home</NavLink>
-                            </li>
+                            </li>}
 
                             <li className="nav-item">
                                 <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
