@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import photoCardStyle from './PhotoCard.module.scss';
-import { FaRegEye as FaEye } from "react-icons/fa";
 import { BsFillPencilFill as Pencil } from "react-icons/bs";
 import { FaRegTrashCan as Trash } from "react-icons/fa6";
 import { useAuth } from '../../contexts/AuthContext';
