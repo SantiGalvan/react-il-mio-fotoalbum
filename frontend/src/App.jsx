@@ -17,6 +17,7 @@ import CategoryCreate from "./pages/CategoriesPages/CategoryCreate";
 import CategoryEdit from "./pages/CategoriesPages/CategoriesEdit";
 import MessageCreate from "./pages/Messages/MessageCreate";
 import MessagesIndex from "./pages/Messages/MessagesIndex";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
 
       {/* Rotte pubbliche */}
       <Route path="/" element={<DefaultLayout />} >
+
+        {/* Not Found */}
+        <Route path="*" element={<NotFound />} />
 
         {/* Home */}
         <Route index element={<Home />} />
