@@ -1,0 +1,40 @@
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .carousel {
+        height: calc(100vh - 80px);
+        width: 100%;
+        margin: 0;
+        display: none;
+        flex-shrink: 1;
+        overflow: hidden;
+        box-shadow: 3px 20px 62px -25px #000;
+        transition: all 3s linear;
+
+    }
+
+    .show {
+        display: block;
+    }
+}
+
+.register-btn {
+    background-color: #a8dadc;
+    border: 1px solid #457b9d;
+    text-decoration: none;
+    color: #0d1b2a;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    }
+}
+
+.title {
+    text-shadow: -20px -8px 48px rgba(66, 68, 90, 1);
+}
