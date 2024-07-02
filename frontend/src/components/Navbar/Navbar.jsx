@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import logoImg from "../../assets/img/logo-navbar.jpg";
+import logoMessages from "../../assets/img/speech-bubble.png";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
@@ -27,6 +28,7 @@ const Navbar = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid px-5 nav">
+
                     <div className="d-flex">
 
                         <Link className="navbar-brand" to={'/'}>
@@ -35,40 +37,34 @@ const Navbar = () => {
                             </figure>
                         </Link>
 
-                        <div className="collapse navbar-collapse">
-
-                            <ul className="navbar-nav">
-
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to={'/'}>Home</NavLink>
-                                </li>
-
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
-                                </li>
-
-                                {user?.isAdmin && <li className="nav-item">
-                                    <NavLink className="nav-link" to={'/categories'}>Categorie</NavLink>
-                                </li>}
-
-                                {user && <li className="nav-item">
-                                    <NavLink className="nav-link" to={'/messages'}>Messaggi</NavLink>
-                                </li>}
-
-                                {user?.isSuperAdmin && <li className="nav-item">
-                                    <NavLink className="nav-link" to={'/users'}>Utenti</NavLink>
-                                </li>}
-
-                                {!isLogged && <li className="nav-item">
-                                    <NavLink to={'/contacts'} className="nav-link" href="#">Contattaci</NavLink>
-                                </li>}
-
-                            </ul>
-
-                        </div>
-                    </div>
-                    <div className="d-flex">
                         <ul className="navbar-nav">
+
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to={'/'}>Home</NavLink>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to={'/photos'}>Foto</NavLink>
+                            </li>
+
+                            {user?.isAdmin && <li className="nav-item">
+                                <NavLink className="nav-link" to={'/categories'}>Categorie</NavLink>
+                            </li>}
+
+                            {user?.isSuperAdmin && <li className="nav-item">
+                                <NavLink className="nav-link" to={'/users'}>Utenti</NavLink>
+                            </li>}
+
+                            {!isLogged && <li className="nav-item">
+                                <NavLink to={'/contacts'} className="nav-link" href="#">Contattaci</NavLink>
+                            </li>}
+
+                        </ul>
+
+                    </div>
+
+                    <div>
+                        <ul className="navbar-nav justify-content-end">
 
                             {!isLogged && <>
 
@@ -82,12 +78,21 @@ const Navbar = () => {
 
                             </>}
 
-                            {isLogged && <li className="nav-item">
-                                <NavLink className="nav-link d-flex gap-2" to={'/dashboard'}>
-                                    <span className={`${colorLogo()} logo`}>{logo()}</span>
-                                    {user.name}
-                                </NavLink>
-                            </li>}
+                            {isLogged && <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link d-flex gap-2" to={'/dashboard'}>
+                                        <span className={`${colorLogo()} logo`}>{logo()}</span>
+                                        {user.name}
+                                    </NavLink>
+                                </li>
+                                {user && <li className="nav-item w-25">
+                                    <NavLink className="nav-link" to={'/messages'}>
+                                        <figure className="mb-0 w-75">
+                                            <img src={logoMessages} alt="Messaggi" className="img-fluid" />
+                                        </figure>
+                                    </NavLink>
+                                </li>}
+                            </>}
 
                         </ul>
                     </div>
