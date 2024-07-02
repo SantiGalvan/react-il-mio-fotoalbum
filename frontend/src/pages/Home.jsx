@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from '../utils/axiosClient.js';
 import { Link } from "react-router-dom";
+import logoImg from "../assets/img/logo-navbar.jpg";
 
 const Home = () => {
 
@@ -53,9 +54,14 @@ const Home = () => {
 
                     </div>
 
-                    <div className="col-4 d-flex flex-column align-items-center justify-content-center text-center gap-3">
+                    <div className="col-4 d-flex flex-column align-items-center text-center gap-3 mt-5">
+
+                        <figure className="home-logo">
+                            <img src={logoImg} alt="Logo" className="img-fluid" />
+                        </figure>
 
                         <h1 className="title">Benvenuto su PhotoBlog, vuoi postare anche tu le tue foto? Allora registrati</h1>
+
                         <Link to={'/register'} className="register-btn">Registrati</Link>
 
                     </div>
