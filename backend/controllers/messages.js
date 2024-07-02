@@ -25,6 +25,12 @@ const store = async (req, res) => {
 const index = async (req, res) => {
     try {
 
+        const where = {}
+
+        // Parametri presi dalla query
+        const { filteredUser } = req.query;
+
+
         // Inserimento dell'utente in automatico recuperando l'id dal token
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -32,9 +38,11 @@ const index = async (req, res) => {
         const user = await prisma.user.findUnique({ where: { email: userEmail } });
         const userId = user.id;
 
+        // if (filteredUser === 'true') where.userId = userId
+
         let messages
 
-        if (user.isSuperAdmin) {
+        if (user.isSuperAdmin && filteredUser !== 'true') {
 
             messages = await prisma.message.findMany({
                 orderBy: [
