@@ -91,7 +91,7 @@ const patch = async (req, res) => {
 
         const { isAdmin } = req.body;
 
-        const data = { isAdmin: isAdmin === 'true' ? true : false }
+        const data = { isAdmin }
 
         const user = await prisma.user.update({
             where: { email },

@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import userCardStyle from './UserCard.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
 
-const UserCard = ({ user, onDelete }) => {
+const UserCard = ({ user, onDelete, changeSwitch }) => {
+
+    const [admin, setAdmin] = useState(user.isAdmin);
 
     const logo = () => {
         if (user.name) {
@@ -22,27 +25,69 @@ const UserCard = ({ user, onDelete }) => {
 
     return (
         <div className={`${userCardStyle.card} card p-2`}>
-            <div className="card-body text-center">
-                <div className={`${userCardStyle.logo} ${colorLogo()}`}>{logo()}</div>
-                <h3>{user.name}</h3>
-                <div className="row">
-                    <h4>Ruolo</h4>
 
-                    {(!user.isAdmin && !user.isSuperAdmin) && <div className="col-12">
+            <div className="card-body text-center">
+
+                <div className={`${userCardStyle.logo} ${colorLogo()}`}>{logo()}</div>
+
+                <h3>{user.name}</h3>
+
+                <div className="row">
+                    <h5>Ruolo:</h5>
+
+                    {(!user.isAdmin && !user.isSuperAdmin) && <div className="col-12 d-flex gap-2 justify-content-center">
                         <h6>User</h6>
+
+                        <div className="mb-3 d-flex gap-2">
+                            {/* <label className="form-check-label" htmlFor="visible">Foto visibile:</label> */}
+                            <div className="form-check form-switch">
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="visible"
+                                    checked={admin}
+                                    onChange={(e) => {
+                                        changeSwitch(e.target.checked, user.email);
+                                        setAdmin(e.target.checked);
+                                    }}
+                                />
+                            </div>
+                        </div>
+
                     </div>}
 
-                    <div className={user.isSuperAdmin ? 'col-6 text-center' : 'col-12'}>
-                        {user.isAdmin && <h6>Admin</h6>}
-                    </div>
+                    {(user.isAdmin && !user.isSuperAdmin) && <div className='col-12 d-flex gap-2 justify-content-center'>
+                        <h6>Admin</h6>
 
-                    <div className="col-6 text-start">
-                        {user.isSuperAdmin && <h6>Super Admin</h6>}
-                    </div>
+                        <div className="mb-3 d-flex gap-2">
+                            {/* <label className="form-check-label" htmlFor="visible">Foto visibile:</label> */}
+                            <div className="form-check form-switch">
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="visible"
+                                    checked={admin}
+                                    onChange={(e) => {
+                                        changeSwitch(e.target.checked, user.email);
+                                        setAdmin(e.target.checked);
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                    </div>}
+
+                    {user.isSuperAdmin && <div className="col-12">
+                        <h6>Super Admin</h6>
+                    </div>}
 
                 </div>
+
                 <p className='mb-0'><strong>Email:</strong></p>
                 <p>{user.email}</p>
+
                 <div className="d-flex justify-content-center">
 
                     {user.isSuperAdmin ||
@@ -55,6 +100,7 @@ const UserCard = ({ user, onDelete }) => {
 
                 </div>
             </div>
+
         </div>
     )
 }

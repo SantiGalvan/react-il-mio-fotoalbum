@@ -39,61 +39,63 @@ const PhotosIndex = () => {
         fetchPhotos();
     }, [filterTitle, filterUser, searchParams]);
 
+    console.log(totalPages);
+
     return (
         <section className="container">
-            {photos.length !== 0 ? <>
 
-                {/* Titolo, Filtri, Bottone */}
-                <div className='row mb-2'>
+            {/* Titolo, Filtri, Bottone */}
+            <div className='row mb-2'>
 
-                    {/* titolo */}
-                    <div className={user ? 'col-1' : 'col-12 text-center'}>
-                        <h1 className="mb-4">Foto</h1>
-                    </div>
-
-                    {/* Filtri */}
-                    {user &&
-                        <div className="col-10 d-flex align-items-center justify-content-center gap-2">
-
-                            <div className="input-group flex-nowrap w-25">
-                                <span className="input-group-text"><FaSearch /></span>
-                                <input
-                                    value={filterTitle}
-                                    onChange={e => setFilterTitle(e.target.value)}
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Cerca..."
-                                />
-                            </div>
-
-
-                            <div className="form-check form-switch">
-                                <input
-                                    checked={filterUser}
-                                    onChange={e => setFilterUser(e.target.checked)}
-                                    className="form-check-input"
-                                    type="checkbox" role="switch"
-                                    id="flexSwitchCheckDefault"
-                                />
-
-                                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
-                            </div>
-
-                        </div>
-                    }
-
-                    {/* Bottone */}
-                    {user &&
-                        <div className="col-1">
-                            <Link
-                                to={'/photos/create'}
-                                className="btn btn-success d-flex align-items-center gap-1">
-                                <Plus />Crea
-                            </Link>
-                        </div>
-                    }
+                {/* titolo */}
+                <div className={user ? 'col-1' : 'col-12 text-center'}>
+                    <h1 className="mb-4">Foto</h1>
                 </div>
 
+                {/* Filtri */}
+                {user &&
+                    <div className="col-10 d-flex align-items-center justify-content-center gap-2">
+
+                        <div className="input-group flex-nowrap w-25">
+                            <span className="input-group-text"><FaSearch /></span>
+                            <input
+                                value={filterTitle}
+                                onChange={e => setFilterTitle(e.target.value)}
+                                type="text"
+                                className="form-control"
+                                placeholder="Cerca..."
+                            />
+                        </div>
+
+
+                        {photos.length !== 0 && <div className="form-check form-switch">
+                            <input
+                                checked={filterUser}
+                                onChange={e => setFilterUser(e.target.checked)}
+                                className="form-check-input"
+                                type="checkbox" role="switch"
+                                id="flexSwitchCheckDefault"
+                            />
+
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
+                        </div>}
+
+                    </div>
+                }
+
+                {/* Bottone */}
+                {user &&
+                    <div className="col-1">
+                        <Link
+                            to={'/photos/create'}
+                            className="btn btn-success d-flex align-items-center gap-1">
+                            <Plus />Crea
+                        </Link>
+                    </div>
+                }
+            </div>
+
+            {photos.length !== 0 ? <>
                 {/* Card e paginazione */}
                 <div className="row g-5">
 
@@ -115,7 +117,7 @@ const PhotosIndex = () => {
                 </div>
 
                 {/* Paginazione */}
-                {!filterUser && <div className="d-flex align-items-center justify-content-center mt-5">
+                {(filterUser || totalPages <= 1) || <div className="d-flex align-items-center justify-content-center mt-5">
 
                     <Pagination totalPages={totalPages} currentPage={currentPage} buttonClick={changedPages} />
 
