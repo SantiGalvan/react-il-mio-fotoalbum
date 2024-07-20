@@ -39,8 +39,6 @@ const PhotosIndex = () => {
         fetchPhotos();
     }, [filterTitle, filterUser, searchParams]);
 
-    console.log(totalPages);
-
     return (
         <section className="container">
 
