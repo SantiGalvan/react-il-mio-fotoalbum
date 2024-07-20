@@ -53,7 +53,6 @@ const Dashboard = () => {
         }
 
         setElementToDelete(element);
-        console.log(element);
     }
 
     const deleteElement = async () => {
