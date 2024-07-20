@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const errorHandler = require("../middlewares/errorHandler.js");
 const jwt = require("jsonwebtoken");
+const formattedDate = require("../utils/formattedDate.js");
 
 const store = async (req, res) => {
     const { content, email } = req.body;
@@ -38,7 +39,7 @@ const index = async (req, res) => {
         const user = await prisma.user.findUnique({ where: { email: userEmail } });
         const userId = user.id;
 
-        // if (filteredUser === 'true') where.userId = userId
+        if (filteredUser === 'true') where.userId = userId
 
         let messages
 
@@ -74,6 +75,13 @@ const index = async (req, res) => {
             });
         }
 
+        const dates = messages.map(message => message.createdAt);
+
+        for (let i = 0; i < dates.length; i++) {
+
+            messages[i].createdAt = formattedDate(dates[i]);
+        }
+
         res.status(200).send(messages);
 
     } catch (err) {
@@ -87,6 +95,9 @@ const show = async (req, res) => {
         const { id } = req.params;
 
         const message = await prisma.message.findUnique({ where: { id: parseInt(id) } });
+
+        message.createdAt = formattedDate(message.createdAt);
+
         res.status(200).send(message);
 
     } catch (err) {
