@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { FaTimes, FaTrashAlt } from "react-icons/fa";
 
 const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, clickLogout, category, message, user }) => {
+
+    const [abstractMessage, setAbstractMessage] = useState();
+
+    const getAbstractMessage = () => {
+        if (message) {
+            const messageContent = message[0] === undefined ? message.content : message[0].content;
+            const newContent = messageContent.length > 60 ? messageContent.substr(0, 60) + '...' : messageContent;
+            setAbstractMessage(newContent);
+        }
+    }
+
+    useEffect(() => {
+        getAbstractMessage();
+    }, [])
+
+
     return (
         <div className="modal" style={isShow ? { display: 'flex' } : ''} tabIndex="-1">
 
@@ -14,7 +31,7 @@ const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, cli
 
                         {category && <h2 className="modal-title">{category[0].label}</h2>}
 
-                        {message && <h2 className="modal-title">{message[0].content}</h2>}
+                        {message && <h2 className="modal-title">{abstractMessage}</h2>}
 
                         {user && <h2 className="modal-title">{user[0].name}</h2>}
 
@@ -29,7 +46,7 @@ const Modal = ({ isShow, closeModal, title, author, clickDelete, deleteMode, cli
 
                             {category && <p>Sicuro di voler eliminare <strong>{category[0].label}</strong>?</p>}
 
-                            {message && <p>Sicuro di voler eliminare <strong>{message[0].content}</strong>?</p>}
+                            {message && <p>Sicuro di voler eliminare <strong>{abstractMessage}</strong>?</p>}
 
                             {user && <p>Sicuro di voler eliminare <strong>{user[0].name}</strong> con email: <strong>{user[0].email}</strong> e ruolo <strong>{`${user[0].isAdmin ? 'admin' : 'user'}`}</strong>?</p>}
 
