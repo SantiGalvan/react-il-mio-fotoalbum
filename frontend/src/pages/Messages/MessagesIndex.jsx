@@ -11,9 +11,10 @@ const MessagesIndex = () => {
     const [messages, setMessages] = useState();
     const [deleteMode, setDeleteMode] = useState(false);
     const [messageDelete, setMessageDelete] = useState();
+    const [filterUser, setFilterUser] = useState('');
 
     const fetchMessages = async () => {
-        const res = await axios.get('/messages');
+        const res = await axios.get('/messages', { params: { filteredUser: filterUser } });
         const newMessages = res.data;
         setMessages(newMessages);
     }
@@ -34,12 +35,29 @@ const MessagesIndex = () => {
 
     useEffect(() => {
         fetchMessages();
-    }, [])
+    }, [filterUser]);
 
     return (
         <section className="container">
 
-            <h1 className='text-center mb-4'>Messaggi</h1>
+            <div className='d-flex align-items-center justify-content-center gap-4 mb-4'>
+
+                <h1>Messaggi</h1>
+
+                {user.isSuperAdmin &&
+                    <div className="form-check form-switch">
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="filteredUser"
+                            checked={filterUser}
+                            onChange={e => setFilterUser(e.target.checked)}
+                        />
+                        <label className="form-check-label" for="filteredUser">Messaggi di {user.name}</label>
+                    </div>
+                }
+            </div>
 
             {messages && <MessagesTable onDelete={messageId} messages={messages} />}
 
