@@ -18,6 +18,7 @@ import CategoryEdit from "./pages/CategoriesPages/CategoriesEdit";
 import MessageCreate from "./pages/Messages/MessageCreate";
 import MessagesIndex from "./pages/Messages/MessagesIndex";
 import NotFound from "./pages/NotFound";
+import MessageShow from "./pages/Messages/MessageShow";
 
 const App = () => {
   return (
@@ -76,7 +77,15 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
 
         {/* Rotta dei messaggi */}
-        <Route path="/messages" element={<MessagesIndex />} />
+        <Route path="/messages"  >
+
+          {/* Index */}
+          <Route index element={<MessagesIndex />} />
+
+          {/* Show */}
+          <Route path=":id" element={<MessageShow />} />
+
+        </Route>
 
       </Route>
 
