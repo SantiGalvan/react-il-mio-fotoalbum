@@ -41,7 +41,7 @@ const MessagesIndex = () => {
 
             <h1 className='text-center mb-4'>Messaggi</h1>
 
-            <MessagesTable onDelete={messageId} messages={messages} />
+            {messages && <MessagesTable onDelete={messageId} messages={messages} />}
 
             {deleteMode &&
                 <Modal
