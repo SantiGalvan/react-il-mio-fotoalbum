@@ -66,7 +66,7 @@ const PhotosIndex = () => {
                         </div>
 
 
-                        {photos.length !== 0 && <div className="form-check form-switch">
+                        {(photos.length !== 0 || !filterTitle) && <div className="form-check form-switch">
                             <input
                                 checked={filterUser}
                                 onChange={e => setFilterUser(e.target.checked)}
