@@ -18,6 +18,10 @@ app.use(express.static("public"));
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Hello word');
+})
+
 // Auth
 app.use('/auth', authRouter);
 
