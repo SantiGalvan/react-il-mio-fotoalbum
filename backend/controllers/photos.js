@@ -59,7 +59,7 @@ const store = async (req, res) => {
 
     } catch (err) {
         if (req.file) deletePic('photos', req.file.filename);
-        errorHandler(err, req, res); (err);
+        errorHandler(err, req, res);
     }
 
 }
@@ -147,7 +147,7 @@ const index = async (req, res) => {
         });
 
     } catch (err) {
-        errorHandler(err, req, res); (err);
+        errorHandler(err, req, res);
     }
 }
 
@@ -176,7 +176,7 @@ const show = async (req, res) => {
         res.status(200).send(photo);
 
     } catch (err) {
-        errorHandler(err, req, res); (err);
+        errorHandler(err, req, res);
     }
 }
 
@@ -304,7 +304,7 @@ const destroy = async (req, res) => {
         res.status(200).json(`Photo ${photo.title} con slug:${slug} eliminata con successo`);
 
     } catch (err) {
-        errorHandler(err, req, res); (err);
+        errorHandler(err, req, res);
     }
 }
 
