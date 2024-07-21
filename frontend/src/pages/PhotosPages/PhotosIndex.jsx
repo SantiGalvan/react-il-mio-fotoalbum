@@ -20,7 +20,7 @@ const PhotosIndex = () => {
     const currentPage = parseInt(searchParams.get('page'));
 
     const fetchPhotos = async () => {
-        const res = await axios.get('http://localhost:3000/photos', { params: { title: filterTitle, user: filterUser, page: currentPage } });
+        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: currentPage } });
         const newPhotos = res.data.data;
         const totPages = res.data.totalPages;
         setPhotos(newPhotos);
