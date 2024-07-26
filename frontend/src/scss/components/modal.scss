@@ -1,5 +1,8 @@
+// Variabili
+@use '../_vars.scss' as *;
+
 .modal {
-    background-color: #000000d4;
+    background-color: $modal-background-color;
     align-items: center;
     justify-content: center;
 

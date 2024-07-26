@@ -6,6 +6,8 @@
 @use './pages/home.scss';
 // Not Found
 @use './pages/notfound.scss';
+// Variabili
+@use './_vars.scss' as *;
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
@@ -17,18 +19,18 @@ body {
 main {
     height: calc(100vh - 80px);
     overflow: auto;
-    background-color: #d9dcd6;
+    background-color: $main-bacKground-color;
 
     &::-webkit-scrollbar {
         width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-        background: #fff;
+        background: $scrollbar-track-background-color;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #000000d4;
+        background: $scrollbar-thumb-background-color;
     }
 
     section {
@@ -37,15 +39,15 @@ main {
 }
 
 .card {
-    box-shadow: 3px 20px 62px -25px #000;
+    box-shadow: $box-shadow;
 }
 
 .super-admin {
-    background-color: #e63946;
+    background-color: $super-admin-background-color;
 }
 
 .admin {
-    background-color: #38a3a5;
+    background-color: $admin-background-color;
 }
 
 .btn {
@@ -53,6 +55,6 @@ main {
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        box-shadow: $btn-hover-box-shadow;
     }
 }

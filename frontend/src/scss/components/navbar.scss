@@ -1,5 +1,8 @@
+// Variabili
+@use '../_vars.scss' as *;
+
 .nav {
-    box-shadow: 1px 22px 46px -26px rgba(66, 68, 90, 0.5);
+    box-shadow: $navbar-box-shadow;
 }
 
 .navbar-brand {
@@ -19,7 +22,7 @@ nav {
         width: 40px;
         border-radius: 50%;
 
-        background-color: gray;
+        background-color: $logo-background-color;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -27,11 +30,11 @@ nav {
     }
 
     .logo.super-admin {
-        background-color: #e63946;
+        background-color: $super-admin-background-color;
     }
 
     .logo.admin {
-        background-color: #38a3a5;
+        background-color: $admin-background-color;
     }
 
     .nav-link {
@@ -54,6 +57,6 @@ nav {
 
     .navbar-nav .nav-item .nav-link.active {
         color: #1d3557;
-        border-bottom: 1px solid #1d3557;
+        border-bottom: $navbar-active-border;
     }
 }
