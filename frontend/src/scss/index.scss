@@ -2,6 +2,8 @@
 @use './components/navbar.scss';
 // Modal
 @use './components/modal.scss';
+// Message Icon
+@use './components/message-icon.scss';
 // Home
 @use './pages/home.scss';
 // Not Found
@@ -14,6 +16,7 @@
 
 .App {
     transition: background-color 4s ease-in-out;
+    position: relative;
 }
 
 body {
@@ -76,4 +79,12 @@ main {
         transform: scale(1.05);
         box-shadow: var(--btn-hover-box-shadow);
     }
+}
+
+.alert {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    translate: -50%;
+    z-index: 1;
 }
