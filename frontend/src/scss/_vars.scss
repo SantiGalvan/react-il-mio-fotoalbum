@@ -5,6 +5,7 @@
     --super-admin-background-color: #e63946;
     --admin-background-color: #38a3a5;
     --logo-background-color: gray;
+    --card-background-color: #fff;
 
     // Index
     --main-bacKground-color: #d9dcd6;
@@ -28,9 +29,6 @@
     --navbar-background-color: #fff;
     --navbar-active-border: 1px solid #1d3557;
     --navbar-link-active: #1d3557;
-
-    // PhotoCard
-    --photo-card-background-color: #fff;
 }
 
 [data-theme="dark"] {
@@ -42,6 +40,7 @@
     --logo-background-color: #d9dcd6;
     --title-color: #796e6efd;
     --label-color: #d9dcd6;
+    --card-background-color: #d9dcd6;
 
     // Index
     --main-bacKground-color: #000000d4;
@@ -63,7 +62,4 @@
     --navbar-background-color: #605858fd;
     --navbar-link-active: #4283df;
     --navbar-active-border: 1px solid #4283df;
-
-    // PhotoCard
-    --photo-card-background-color: #d9dcd6;
 }
