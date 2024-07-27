@@ -59,10 +59,6 @@ const Navbar = () => {
                                 <NavLink className="nav-link" to={'/users'}>Utenti</NavLink>
                             </li>}
 
-                            {!isLogged && <li className="nav-item">
-                                <NavLink to={'/contacts'} className="nav-link" href="#">Contattaci</NavLink>
-                            </li>}
-
                         </ul>
 
                     </div>
