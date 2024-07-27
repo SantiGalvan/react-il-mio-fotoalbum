@@ -1,11 +1,14 @@
 import FormLogin from "../../components/Forms/FormLogin";
 import Alert from "../../components/Alert/Alert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useMessage } from "../../contexts/MessageContext";
 
 const Login = () => {
 
     const { login } = useAuth();
+
+    const { setUserMessage } = useMessage();
 
     const [loginError, setLoginError] = useState(null);
     const [alertOpen, setAlertOpen] = useState(false);
@@ -25,6 +28,10 @@ const Login = () => {
 
         }
     }
+
+    useEffect(() => {
+        setUserMessage({});
+    }, []);
 
     return (
         <section className="container">

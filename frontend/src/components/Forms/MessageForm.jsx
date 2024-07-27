@@ -2,11 +2,12 @@ import { useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { BsArrowClockwise } from "react-icons/bs";
 
-const MessageForm = ({ onSubmit }) => {
+const MessageForm = ({ onSubmit, userId }) => {
 
     const initialData = {
         email: '',
-        content: ''
+        content: '',
+        userId
     }
 
     const [formData, setFormData] = useState(initialData);

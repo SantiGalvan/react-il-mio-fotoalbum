@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { useDarkMode } from "../contexts/DarkModeContext";
 import MessageIcon from "../components/Message/MessageIcon";
 import { useAuth } from "../contexts/AuthContext";
+import { useMessage } from "../contexts/MessageContext";
 import { useState } from "react";
 import ContactModal from "../components/Modal/ContactModal";
 import MessageAlert from "../components/Alert/MessageAlert";
@@ -13,6 +14,8 @@ const DefaultLayout = () => {
     const { user } = useAuth();
 
     const { isDark } = useDarkMode();
+
+    const { userMessage } = useMessage();
 
     const [isMessage, setIsMessage] = useState(false);
     const [messageSubmit, setMessageSubmit] = useState();
@@ -56,6 +59,7 @@ const DefaultLayout = () => {
                         isShow={isMessage}
                         closeModal={() => setIsMessage(false)}
                         onSubmit={createMessage}
+                        userMessage={userMessage ? userMessage : ''}
                     />
                 }
 

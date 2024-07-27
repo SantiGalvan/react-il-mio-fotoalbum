@@ -1,7 +1,9 @@
 import { useState } from "react";
 import MessageForm from "../Forms/MessageForm";
 
-const ContactModal = ({ isShow, closeModal, onSubmit }) => {
+const ContactModal = ({ isShow, closeModal, onSubmit, userMessage }) => {
+
+    console.log(userMessage);
 
     return (
         <div className="modal" style={isShow ? { display: 'flex' } : ''} tabIndex="-1">
@@ -12,7 +14,10 @@ const ContactModal = ({ isShow, closeModal, onSubmit }) => {
 
                     <div className="modal-header">
 
-                        <h2 className="modal-title">Invia un messaggio</h2>
+                        {userMessage.name ?
+                            <h2 className="modal-title">Invia un messaggio a {userMessage.name}</h2> :
+                            <h2 className="modal-title">Invia un messaggio all'admin</h2>
+                        }
 
                         <button onClick={closeModal} type="button" className="btn-close"></button>
 
@@ -21,7 +26,7 @@ const ContactModal = ({ isShow, closeModal, onSubmit }) => {
 
                     <div className="modal-body text-center">
 
-                        <MessageForm onSubmit={onSubmit} />
+                        <MessageForm onSubmit={onSubmit} userId={userMessage ? userMessage.id : ''} />
 
                     </div>
 

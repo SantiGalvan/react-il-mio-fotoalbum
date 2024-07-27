@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMessage } from "../contexts/MessageContext.jsx";
 import axios from '../utils/axiosClient.js';
 import { Link } from "react-router-dom";
 import logoImg from "../assets/img/logo-navbar.jpg";
@@ -8,6 +9,8 @@ const Home = () => {
     const [images, setImages] = useState();
     const [totImages, setTotImages] = useState();
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const { setUserMessage } = useMessage();
 
     const fetchImages = async () => {
         const res = await axios.get('/photos', { params: { limit: 40 } });
@@ -22,6 +25,8 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
+        setUserMessage({});
+
         const timeout = setTimeout(() => {
 
             setCurrentIndex(curr => {
