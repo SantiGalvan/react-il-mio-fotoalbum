@@ -39,7 +39,7 @@ const MessageShow = () => {
                     <ArrowLeft />Torna indietro
                 </button>
 
-                <h1>Messaggio</h1>
+                <h1 className="title">Messaggio</h1>
 
                 <button
                     onClick={() => { setDeleteMode(true) }}

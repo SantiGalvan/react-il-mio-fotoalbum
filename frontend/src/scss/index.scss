@@ -13,7 +13,7 @@
 @import "bootstrap/scss/bootstrap";
 
 .App {
-    transition: background-color 0.25s ease-in-out;
+    transition: background-color 4s ease-in-out;
 }
 
 body {
@@ -24,6 +24,7 @@ main {
     height: calc(100vh - 80px);
     overflow: auto;
     background-color: var(--main-bacKground-color);
+    transition: background-color 0.25s ease-in-out;
 
     &::-webkit-scrollbar {
         width: 10px;
@@ -35,11 +36,24 @@ main {
 
     &::-webkit-scrollbar-thumb {
         background: var(--scrollbar-thumb-background-color);
+        border-radius: 5px;
+
+        &:hover {
+            background-color: var(--scrollbar-thumb-hover-background-color);
+        }
     }
 
     section {
         padding: 40px 0;
     }
+}
+
+.title {
+    color: var(--title-color);
+}
+
+.label {
+    color: var(--label-color);
 }
 
 .card {

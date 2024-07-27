@@ -27,7 +27,7 @@ const PhotoCreate = () => {
                 >
                     <ArrowLeft />Torna indietro
                 </button>
-                <h1>Crea la tua Foto</h1>
+                <h1 className="title">Crea la tua Foto</h1>
             </div>
 
             <PhotoForm onSubmit={createPhoto} />

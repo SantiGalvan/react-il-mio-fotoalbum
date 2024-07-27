@@ -29,7 +29,7 @@ const Login = () => {
     return (
         <section className="container">
             {alertOpen && <Alert generalError={loginError} closeAlert={() => setAlertOpen(false)} />}
-            <h1 className="text-center mb-4">Login</h1>
+            <h1 className="text-center mb-4 title">Login</h1>
             <FormLogin submitForm={handleLogin} />
         </section>
     )
