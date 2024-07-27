@@ -97,7 +97,7 @@ const Navbar = () => {
                                     </NavLink>
                                 </li>}
                             </>}
-                            <li>
+                            <li className="ms-2">
                                 <Toggle
                                     isChecked={isDark}
                                     handleChange={() => setIsDark(!isDark)}
