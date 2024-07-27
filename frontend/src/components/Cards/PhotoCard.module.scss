@@ -1,10 +1,13 @@
+// Variabili
+@use '../../scss/_vars.scss' as *;
+
 .indexCard {
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--card-background-color);
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
-    box-shadow: 3px 20px 62px -25px #000;
+    box-shadow: var(--box-shadow);
     transition: all 0.3s linear;
     cursor: pointer;
 
@@ -31,11 +34,11 @@
 }
 
 .showCard {
-    background-color: #fff;
+    background-color: var(--card-background-color);
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
-    box-shadow: 3px 20px 62px -25px #000;
+    box-shadow: var(--box-shadow);
 
     figure {
         height: 400px;
@@ -57,20 +60,7 @@
 }
 
 .dataBtn {
-    margin: 20px 0;
-    padding: 10px 15px;
-    background-color: #0077b6;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
     transition: all 0.3s linear;
-    text-decoration: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
 
     &:hover {
         transform: scale(1.05);

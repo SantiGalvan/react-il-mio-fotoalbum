@@ -47,7 +47,7 @@ const PhotosIndex = () => {
 
                 {/* titolo */}
                 <div className={user ? 'col-1' : 'col-12 text-center'}>
-                    <h1 className="mb-4">Foto</h1>
+                    <h1 className="mb-4 title">Foto</h1>
                 </div>
 
                 {/* Filtri */}
@@ -75,7 +75,7 @@ const PhotosIndex = () => {
                                 id="flexSwitchCheckDefault"
                             />
 
-                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
+                            <label className="form-check-label label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
                         </div>}
 
                     </div>

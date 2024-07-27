@@ -82,7 +82,7 @@ const Dashboard = () => {
         <section className="container">
             <div className="row">
 
-                <h1 className="text-center">Benvenuto {user.name}</h1>
+                <h1 className="text-center title">Benvenuto {user.name}</h1>
 
                 <div className="col-7">
 

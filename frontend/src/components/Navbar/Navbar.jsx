@@ -2,10 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import logoImg from "../../assets/img/logo-navbar.jpg";
 import logoMessages from "../../assets/img/speech-bubble.png";
 import { useAuth } from "../../contexts/AuthContext";
+import Toggle from "../Toggle/Toggle";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 const Navbar = () => {
 
     const { user, isLogged } = useAuth();
+
+    const { isDark, setIsDark } = useDarkMode();
 
     const logo = () => {
         if (user.name) {
@@ -93,6 +97,12 @@ const Navbar = () => {
                                     </NavLink>
                                 </li>}
                             </>}
+                            <li className="ms-2">
+                                <Toggle
+                                    isChecked={isDark}
+                                    handleChange={() => setIsDark(!isDark)}
+                                />
+                            </li>
 
                         </ul>
                     </div>

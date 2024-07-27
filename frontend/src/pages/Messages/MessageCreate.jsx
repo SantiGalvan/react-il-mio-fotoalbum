@@ -37,7 +37,7 @@ const MessageCreate = () => {
                     <ArrowLeft />Torna indietro
                 </button>
 
-                <h1>Invia un messaggio</h1>
+                <h1 className="title">Invia un messaggio</h1>
 
             </div>
 

@@ -51,7 +51,7 @@ const PhotoEdit = () => {
                 >
                     <ArrowLeft />Torna indietro
                 </button>
-                <h1>Modifica la tua Foto</h1>
+                <h1 className="title">Modifica la tua Foto</h1>
             </div>
 
             {dataToEdit === null ?

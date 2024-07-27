@@ -42,7 +42,7 @@ const MessagesIndex = () => {
 
             <div className='d-flex align-items-center justify-content-center gap-4 mb-4'>
 
-                <h1>Messaggi</h1>
+                <h1 className='title'>Messaggi</h1>
 
                 {user.isSuperAdmin &&
                     <div className="form-check form-switch">

@@ -27,7 +27,7 @@ const CategoryCreate = () => {
                     <ArrowLeft />Torna indietro
                 </button>
 
-                <h1>Crea una Categoria</h1>
+                <h1 className="title">Crea una Categoria</h1>
 
             </div>
 

@@ -44,7 +44,7 @@ const CategoryEdit = () => {
                     <ArrowLeft />Torna indietro
                 </button>
 
-                <h1>Modifica la Categoria</h1>
+                <h1 className="title">Modifica la Categoria</h1>
 
             </div>
 

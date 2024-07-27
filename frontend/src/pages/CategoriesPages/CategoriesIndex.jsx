@@ -44,7 +44,7 @@ const CategoriesIndex = () => {
         <section className="container">
 
             <div className={user.isAdmin ? "d-flex align-items-center justify-content-between" : ""}>
-                <h1 className="text-center mb-4">Categorie</h1>
+                <h1 className="text-center mb-4 title">Categorie</h1>
                 {user.isAdmin && <Link to={'/categories/create'} className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</Link>}
             </div>
 

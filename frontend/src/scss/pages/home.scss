@@ -1,3 +1,6 @@
+// Variabili
+@use '../_vars.scss' as *;
+
 .carousel-container {
     display: flex;
     align-items: center;
@@ -10,7 +13,7 @@
         display: none;
         flex-shrink: 1;
         overflow: hidden;
-        box-shadow: 3px 20px 62px -25px #000;
+        box-shadow: var(--box-shadow);
         transition: all 3s linear;
 
     }
@@ -21,22 +24,22 @@
 }
 
 .register-btn {
-    background-color: #a8dadc;
-    border: 1px solid #457b9d;
+    background-color: var(--register-btn-background-color);
+    border: var(--register-btn-border);
     text-decoration: none;
-    color: #0d1b2a;
+    color: var(--register-btn-color);
     padding: 10px 15px;
     border-radius: 10px;
     transition: all 0.3s linear;
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        box-shadow: var(--btn-hover-box-shadow);
     }
 }
 
-.title {
-    text-shadow: -20px -8px 48px rgba(66, 68, 90, 1);
+.shdw {
+    text-shadow: var(--title-text-shadow);
 }
 
 .home-logo {

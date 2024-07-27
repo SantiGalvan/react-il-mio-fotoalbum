@@ -64,7 +64,7 @@ const Users = () => {
 
     return (
         <section className="container">
-            <h1 className="text-center">Utenti</h1>
+            <h1 className="text-center title">Utenti</h1>
 
             {users && <div className="row my-4 g-4">
 

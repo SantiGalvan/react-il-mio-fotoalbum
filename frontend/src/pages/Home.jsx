@@ -60,7 +60,7 @@ const Home = () => {
                             <img src={logoImg} alt="Logo" className="img-fluid" />
                         </figure>
 
-                        <h1 className="title">Benvenuto su PhotoBlog, vuoi postare anche tu le tue foto? Allora registrati</h1>
+                        <h1 className="title shdw">Benvenuto su PhotoBlog, vuoi postare anche tu le tue foto? Allora registrati</h1>
 
                         <Link to={'/register'} className="register-btn">Registrati</Link>
 
