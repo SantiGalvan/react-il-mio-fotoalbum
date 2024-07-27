@@ -3,8 +3,6 @@ import MessageForm from "../Forms/MessageForm";
 
 const ContactModal = ({ isShow, closeModal, onSubmit, userMessage }) => {
 
-    console.log(userMessage);
-
     return (
         <div className="modal" style={isShow ? { display: 'flex' } : ''} tabIndex="-1">
 
@@ -26,7 +24,7 @@ const ContactModal = ({ isShow, closeModal, onSubmit, userMessage }) => {
 
                     <div className="modal-body text-center">
 
-                        <MessageForm onSubmit={onSubmit} userId={userMessage ? userMessage.id : ''} />
+                        <MessageForm onSubmit={onSubmit} userId={userMessage ? userMessage.id : ''} photoId={userMessage ? userMessage.photoId : ''} />
 
                     </div>
 
