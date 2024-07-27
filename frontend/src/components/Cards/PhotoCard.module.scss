@@ -3,11 +3,11 @@
 
 .indexCard {
     padding: 20px;
-    background-color: $photo-card-background-color;
+    background-color: var(--photo-card-background-color);
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
-    box-shadow: $box-shadow;
+    box-shadow: var(--box-shadow);
     transition: all 0.3s linear;
     cursor: pointer;
 
@@ -34,11 +34,11 @@
 }
 
 .showCard {
-    background-color: $photo-card-background-color;
+    background-color: var(--photo-card-background-color);
     border-radius: 20px;
     margin: 0 auto;
     border-radius: 20px;
-    box-shadow: $box-shadow;
+    box-shadow: var(--box-shadow);
 
     figure {
         height: 400px;

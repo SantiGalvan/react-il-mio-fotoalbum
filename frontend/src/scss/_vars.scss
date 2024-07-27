@@ -1,27 +1,59 @@
-// General
-$box-shadow: 3px 20px 62px -25px #000;
-$btn-hover-box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-$super-admin-background-color: #e63946;
-$admin-background-color: #38a3a5;
-$logo-background-color: gray;
+:root {
+    // General
+    --box-shadow: 3px 20px 62px -25px #000;
+    --btn-hover-box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    --super-admin-background-color: #e63946;
+    --admin-background-color: #38a3a5;
+    --logo-background-color: gray;
 
-// Index
-$main-bacKground-color: #d9dcd6;
-$scrollbar-track-background-color: #fff;
-$scrollbar-thumb-background-color: #000000d4;
+    // Index
+    --main-bacKground-color: #d9dcd6;
+    --scrollbar-track-background-color: #fff;
+    --scrollbar-thumb-background-color: #000000d4;
 
-// Home
-$register-btn-background-color: #a8dadc;
-$register-btn-border: 1px solid #457b9d;
-$register-btn-color: #0d1b2a;
-$title-text-shadow: -20px -8px 48px rgba(66, 68, 90, 1);
+    // Home
+    --register-btn-background-color: #a8dadc;
+    --register-btn-border: 1px solid #457b9d;
+    --register-btn-color: #0d1b2a;
+    --title-text-shadow: -20px -8px 48px rgba(66, 68, 90, 1);
 
-// Modal
-$modal-background-color: #000000d4;
+    // Modal
+    --modal-background-color: #000000d4;
 
-// Navbar
-$navbar-box-shadow: 1px 22px 46px -26px rgba(66, 68, 90, 0.5);
-$navbar-active-border: 1px solid #1d3557;
+    // Navbar
+    --navbar-box-shadow: 1px 22px 46px -26px rgba(66, 68, 90, 0.5);
+    --navbar-active-border: 1px solid #1d3557;
 
-// PhotoCard
-$photo-card-background-color: #fff;
+    // PhotoCard
+    --photo-card-background-color: #fff;
+}
+
+[data-theme="dark"] {
+    // General
+    --box-shadow: 3px 20px 62px -25px #000;
+    --btn-hover-box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    --super-admin-background-color: #e63946;
+    --admin-background-color: #38a3a5;
+    --logo-background-color: gray;
+
+    // Index
+    --main-bacKground-color: #000000d4;
+    --scrollbar-track-background-color: #605858fd;
+    --scrollbar-thumb-background-color: #d9dcd6;
+
+    // Home
+    --register-btn-background-color: #a8dadc;
+    --register-btn-border: 1px solid #457b9d;
+    --register-btn-color: #0d1b2a;
+    --title-text-shadow: -20px -8px 48px rgba(66, 68, 90, 1);
+
+    // Modal
+    --modal-background-color: #000000d4;
+
+    // Navbar
+    --navbar-box-shadow: 1px 22px 46px -26px rgba(66, 68, 90, 0.5);
+    --navbar-active-border: 1px solid #1d3557;
+
+    // PhotoCard
+    --photo-card-background-color: #fff;
+}

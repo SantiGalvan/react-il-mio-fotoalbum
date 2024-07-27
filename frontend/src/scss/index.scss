@@ -12,6 +12,10 @@
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
 
+.App {
+    transition: background-color 0.25s ease-in-out;
+}
+
 body {
     font-family: "Cabin", sans-serif;
 }
@@ -19,18 +23,18 @@ body {
 main {
     height: calc(100vh - 80px);
     overflow: auto;
-    background-color: $main-bacKground-color;
+    background-color: var(--main-bacKground-color);
 
     &::-webkit-scrollbar {
         width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-        background: $scrollbar-track-background-color;
+        background: var(--scrollbar-track-background-color);
     }
 
     &::-webkit-scrollbar-thumb {
-        background: $scrollbar-thumb-background-color;
+        background: var(--scrollbar-thumb-background-color);
     }
 
     section {
@@ -39,15 +43,15 @@ main {
 }
 
 .card {
-    box-shadow: $box-shadow;
+    box-shadow: var(--box-shadow);
 }
 
 .super-admin {
-    background-color: $super-admin-background-color;
+    background-color: var(--super-admin-background-color);
 }
 
 .admin {
-    background-color: $admin-background-color;
+    background-color: var(--admin-background-color);
 }
 
 .btn {
@@ -55,6 +59,6 @@ main {
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: $btn-hover-box-shadow;
+        box-shadow: var(--btn-hover-box-shadow);
     }
 }

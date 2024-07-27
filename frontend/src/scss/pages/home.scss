@@ -13,7 +13,7 @@
         display: none;
         flex-shrink: 1;
         overflow: hidden;
-        box-shadow: $box-shadow;
+        box-shadow: var(--box-shadow);
         transition: all 3s linear;
 
     }
@@ -24,22 +24,22 @@
 }
 
 .register-btn {
-    background-color: $register-btn-background-color;
-    border: $register-btn-border;
+    background-color: var(--register-btn-background-color);
+    border: var(--register-btn-border);
     text-decoration: none;
-    color: $register-btn-color;
+    color: var(--register-btn-color);
     padding: 10px 15px;
     border-radius: 10px;
     transition: all 0.3s linear;
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: $btn-hover-box-shadow;
+        box-shadow: var(--btn-hover-box-shadow);
     }
 }
 
 .title {
-    text-shadow: $title-text-shadow;
+    text-shadow: var(--title-text-shadow);
 }
 
 .home-logo {

@@ -2,7 +2,7 @@
 @use '../_vars.scss' as *;
 
 .nav {
-    box-shadow: $navbar-box-shadow;
+    box-shadow: var(--navbar-box-shadow);
 }
 
 .navbar-brand {
@@ -22,7 +22,7 @@ nav {
         width: 40px;
         border-radius: 50%;
 
-        background-color: $logo-background-color;
+        background-color: var(--logo-background-color);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -30,11 +30,11 @@ nav {
     }
 
     .logo.super-admin {
-        background-color: $super-admin-background-color;
+        background-color: var(--super-admin-background-color);
     }
 
     .logo.admin {
-        background-color: $admin-background-color;
+        background-color: var(--admin-background-color);
     }
 
     .nav-link {
@@ -57,6 +57,6 @@ nav {
 
     .navbar-nav .nav-item .nav-link.active {
         color: #1d3557;
-        border-bottom: $navbar-active-border;
+        border-bottom: var(--navbar-active-border);
     }
 }

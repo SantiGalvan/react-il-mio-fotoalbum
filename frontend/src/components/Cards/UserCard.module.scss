@@ -4,7 +4,7 @@
 .logo {
     height: 100px;
     width: 100px;
-    background-color: $logo-background-color;
+    background-color: var(--logo-background-color);
     margin: 0 auto;
     border-radius: 50%;
     font-size: 40px;

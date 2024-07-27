@@ -2,7 +2,7 @@
 @use '../_vars.scss' as *;
 
 .modal {
-    background-color: $modal-background-color;
+    background-color: var(--modal-background-color);
     align-items: center;
     justify-content: center;
 
