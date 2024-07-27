@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import { GlobalProvider } from './contexts/GlobalContext.jsx'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
+import { MessageProvider } from './contexts/MessageContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,9 +14,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <DarkModeProvider>
         <GlobalProvider>
           <AuthProvider>
+            <MessageProvider>
 
-            <App />
+              <App />
 
+            </MessageProvider>
           </AuthProvider>
         </GlobalProvider>
       </DarkModeProvider>

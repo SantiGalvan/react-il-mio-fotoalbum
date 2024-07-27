@@ -54,7 +54,7 @@ const MessagesIndex = () => {
                             checked={filterUser}
                             onChange={e => setFilterUser(e.target.checked)}
                         />
-                        <label className="form-check-label" for="filteredUser">Messaggi di {user.name}</label>
+                        <label className="form-check-label label" htmlFor="filteredUser">Messaggi di {user.name}</label>
                     </div>
                 }
             </div>

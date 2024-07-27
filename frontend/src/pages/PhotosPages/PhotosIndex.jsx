@@ -6,10 +6,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import { FaSearch } from "react-icons/fa";
 import Pagination from "../../components/Pagination/Pagination.jsx";
+import { useMessage } from "../../contexts/MessageContext.jsx";
 
 const PhotosIndex = () => {
 
     const { user } = useAuth();
+
+    const { setUserMessage } = useMessage();
 
     const [photos, setPhotos] = useState([]);
     const [filterTitle, setFilterTitle] = useState('');
@@ -37,6 +40,7 @@ const PhotosIndex = () => {
 
     useEffect(() => {
         fetchPhotos();
+        setUserMessage({})
     }, [filterTitle, filterUser, searchParams]);
 
     return (

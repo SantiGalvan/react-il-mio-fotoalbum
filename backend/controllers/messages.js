@@ -5,12 +5,13 @@ const jwt = require("jsonwebtoken");
 const formattedDate = require("../utils/formattedDate.js");
 
 const store = async (req, res) => {
-    const { content, email } = req.body;
+    const { content, email, userId, photoId } = req.body;
 
     const data = {
         email,
         content,
-        userId: 7
+        userId: userId ? parseInt(userId) : 7,
+        photoId: photoId ? photoId : null
     }
 
     try {
@@ -94,7 +95,17 @@ const show = async (req, res) => {
 
         const { id } = req.params;
 
-        const message = await prisma.message.findUnique({ where: { id: parseInt(id) } });
+        const message = await prisma.message.findUnique({
+            where: { id: parseInt(id) },
+            include: {
+                photo: {
+                    select: {
+                        title: true,
+                        slug: true,
+                    }
+                }
+            }
+        });
 
         message.createdAt = formattedDate(message.createdAt);
 

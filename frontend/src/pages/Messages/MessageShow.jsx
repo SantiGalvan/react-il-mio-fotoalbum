@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from '../../utils/axiosClient.js';
 import { FaArrowLeft as ArrowLeft } from "react-icons/fa";
 import { FaRegTrashCan as Trash } from "react-icons/fa6";
@@ -60,6 +60,12 @@ const MessageShow = () => {
                     <p className="mb-0">{message?.content}</p>
                     <p className="mt-3"><strong>Messaggio del: </strong>{message?.createdAt}</p>
                 </div>
+
+                {message?.photo && <div className="card p-4 mb-4 d-flex align-items-center justify-content-center">
+                    <h4>Foto del messaggio:</h4>
+                    <h6>{message.photo.title}</h6>
+                    <button className="btn btn-primary mt-2" onClick={() => navigate(`/photos/${message.photo.slug}`)}>Vedi</button>
+                </div>}
 
             </div>
 

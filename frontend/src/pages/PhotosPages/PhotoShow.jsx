@@ -5,12 +5,15 @@ import axios from "../../utils/axiosClient.js";
 import { FaArrowLeft as ArrowLeft } from "react-icons/fa";
 import Modal from "../../components/Modal/Modal.jsx";
 import { useAuth } from "../../contexts/AuthContext.jsx";
+import { useMessage } from "../../contexts/MessageContext.jsx";
 
 const PhotoShow = () => {
 
     const { user } = useAuth()
 
     const { slug } = useParams();
+
+    const { setUserMessage } = useMessage();
 
     const navigate = useNavigate();
 
@@ -21,6 +24,7 @@ const PhotoShow = () => {
         const res = await axios.get(`/photos/${slug}`);
         const newPhoto = res.data;
         setPhoto(newPhoto);
+        setUserMessage(curr => ({ ...curr, name: newPhoto.user.name, id: newPhoto.userId, photoId: newPhoto.id }));
     }
 
     const deletePhoto = async () => {
@@ -39,7 +43,7 @@ const PhotoShow = () => {
         <section className="container">
 
             {photo && <> <button
-                onClick={() => { navigate('/photos') }}
+                onClick={() => { navigate(-1) }}
                 className='btn btn-secondary h-75 d-flex align-items-center gap-1 mb-4'
             >
                 <ArrowLeft />Torna indietro

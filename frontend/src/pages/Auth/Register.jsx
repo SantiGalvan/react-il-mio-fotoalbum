@@ -1,11 +1,14 @@
 import FormRegister from "../../components/Forms/FormRegister";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Alert from "../../components/Alert/Alert.jsx";
+import { useMessage } from "../../contexts/MessageContext.jsx";
 
 const Register = () => {
 
-    const { register } = useAuth()
+    const { register } = useAuth();
+
+    const { setUserMessage } = useMessage();
 
     const [registerError, setRegisterError] = useState(null);
     const [alertOpen, setAlertOpen] = useState(false);
@@ -20,6 +23,10 @@ const Register = () => {
             setAlertOpen(true);
         }
     }
+
+    useEffect(() => {
+        setUserMessage({});
+    }, []);
 
     return (
         <section className="container">

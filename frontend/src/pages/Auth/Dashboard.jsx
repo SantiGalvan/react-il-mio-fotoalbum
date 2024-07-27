@@ -92,44 +92,50 @@ const Dashboard = () => {
 
                         <div className="card p-4">
 
-                            <table className="table table-dark mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Titolo</th>
-                                        <th scope="col">Visibile</th>
+                            {photos?.length !== 0 ?
+                                <table className="table table-dark mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">id</th>
+                                            <th scope="col">Titolo</th>
+                                            <th scope="col">Visibile</th>
 
-                                        {user.isSuperAdmin && <th scope="col">Fotografo</th>}
+                                            {user.isSuperAdmin && <th scope="col">Fotografo</th>}
 
-                                        <th scope="col">
-                                            <div className='d-flex justify-content-center'>
-                                                <Link to={`/photos/create`} className='btn btn-sm btn-success d-flex align-items-center justify-content-center'><Plus /></Link>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                            <th scope="col">
+                                                <div className='d-flex justify-content-center'>
+                                                    <Link to={`/photos/create`} className='btn btn-sm btn-success d-flex align-items-center justify-content-center'><Plus /></Link>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    {photos?.map(photo =>
-                                    (<tr key={`photo-${photo.id}`}>
-                                        <th scope="row">{photo.id}</th>
-                                        <td>{photo.title}</td>
-                                        <td>{photo.visible ? 'Si' : 'No'}</td>
-                                        {user.isSuperAdmin && <td>{photo.user.name}</td>}
-                                        <td>
-                                            <div className='d-flex justify-content-center gap-2'>
+                                        {photos?.map(photo =>
+                                        (<tr key={`photo-${photo.id}`}>
+                                            <th scope="row">{photo.id}</th>
+                                            <td>{photo.title}</td>
+                                            <td>{photo.visible ? 'Si' : 'No'}</td>
+                                            {user.isSuperAdmin && <td>{photo.user.name}</td>}
+                                            <td>
+                                                <div className='d-flex justify-content-center gap-2'>
 
-                                                <Link to={`/photos/${photo.slug}`} className='btn btn-sm btn-primary d-flex align-items-center justify-content-center'><FaEye /></Link>
-                                                <Link to={`/photos/${photo.slug}/edit`} className='btn btn-sm btn-warning d-flex align-items-center justify-content-center'><Pencil /></Link>
-                                                <button onClick={() => { getElementToDelete(photo.slug) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
+                                                    <Link to={`/photos/${photo.slug}`} className='btn btn-sm btn-primary d-flex align-items-center justify-content-center'><FaEye /></Link>
+                                                    <Link to={`/photos/${photo.slug}/edit`} className='btn btn-sm btn-warning d-flex align-items-center justify-content-center'><Pencil /></Link>
+                                                    <button onClick={() => { getElementToDelete(photo.slug) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
 
-                                            </div>
-                                        </td>
-                                    </tr>)
-                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>)
+                                        )}
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table> :
+                                <div className="text-center d-flex align-items-center justify-content-center flex-column">
+                                    <h4>Non ci sono foto, creane subito una premendo l'apposito bottone</h4>
+                                    <Link to={`/photos/create`} className='btn btn-success d-flex align-items-center justify-content-center gap-1'><Plus />Crea</Link>
+                                </div>
+                            }
 
                         </div>
 
@@ -155,35 +161,40 @@ const Dashboard = () => {
 
                                 <div className="card p-4">
 
-                                    <table className="table table-dark mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">id</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            {messages?.map(message => (
-                                                <tr key={message.id}>
-                                                    <th scope="row">{message.id}</th>
-                                                    <td>{message.email}</td>
-                                                    <td>
-
-                                                        <div className='d-flex justify-content-center gap-2'>
-
-                                                            <Link to={`/messages/${message.id}`} className='btn btn-sm btn-primary d-flex align-items-center justify-content-center'><FaEye /></Link>
-                                                            <button onClick={() => { getElementToDelete(message.id) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
-
-                                                        </div>
-
-                                                    </td>
+                                    {messages?.length !== 0 ?
+                                        <table className="table table-dark mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">id</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col"></th>
                                                 </tr>
-                                            ))}
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
-                                    </table>
+                                                {messages?.map(message => (
+                                                    <tr key={message.id}>
+                                                        <th scope="row">{message.id}</th>
+                                                        <td>{message.email}</td>
+                                                        <td>
+
+                                                            <div className='d-flex justify-content-center gap-2'>
+
+                                                                <Link to={`/messages/${message.id}`} className='btn btn-sm btn-primary d-flex align-items-center justify-content-center'><FaEye /></Link>
+                                                                <button onClick={() => { getElementToDelete(message.id) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
+
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                ))}
+
+                                            </tbody>
+                                        </table> :
+                                        <div className="text-center">
+                                            <h4>Non ci sono messaggi</h4>
+                                        </div>
+                                    }
 
                                 </div>
                             </div>
