@@ -50,40 +50,39 @@ const PhotosIndex = () => {
             <div className='row mb-2'>
 
                 {/* titolo */}
-                <div className={user ? 'col-1' : 'col-12 text-center'}>
+                <div className='col-1'>
                     <h1 className="mb-4 title">Foto</h1>
                 </div>
 
                 {/* Filtri */}
-                {user &&
-                    <div className="col-10 d-flex align-items-center justify-content-center gap-2">
 
-                        <div className="input-group flex-nowrap w-25">
-                            <span className="input-group-text"><FaSearch /></span>
-                            <input
-                                value={filterTitle}
-                                onChange={e => setFilterTitle(e.target.value)}
-                                type="text"
-                                className="form-control"
-                                placeholder="Cerca..."
-                            />
-                        </div>
+                <div className="col-10 d-flex align-items-center justify-content-center gap-2">
 
-
-                        {(photos.length !== 0 || !filterTitle) && <div className="form-check form-switch">
-                            <input
-                                checked={filterUser}
-                                onChange={e => setFilterUser(e.target.checked)}
-                                className="form-check-input"
-                                type="checkbox" role="switch"
-                                id="flexSwitchCheckDefault"
-                            />
-
-                            <label className="form-check-label label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
-                        </div>}
-
+                    <div className="input-group flex-nowrap w-25">
+                        <span className="input-group-text"><FaSearch /></span>
+                        <input
+                            value={filterTitle}
+                            onChange={e => setFilterTitle(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Cerca..."
+                        />
                     </div>
-                }
+
+
+                    {(photos.length !== 0 || !filterTitle) && user && <div className="form-check form-switch">
+                        <input
+                            checked={filterUser}
+                            onChange={e => setFilterUser(e.target.checked)}
+                            className="form-check-input"
+                            type="checkbox" role="switch"
+                            id="flexSwitchCheckDefault"
+                        />
+
+                        <label className="form-check-label label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
+                    </div>}
+
+                </div>
 
                 {/* Bottone */}
                 {user &&
@@ -128,9 +127,9 @@ const PhotosIndex = () => {
             </> :
                 <div className="row mt-5">
                     {filterTitle &&
-                        <h3 className="text-center mt-5">Non ci sono foto con questo titolo: {filterTitle}</h3>}
+                        <h3 className="text-center mt-5 title">Non ci sono foto con questo titolo: {filterTitle}</h3>}
                     {filterUser &&
-                        <h3 className="text-center mt-5">Ei {user.name} non hai ancora caricato tue foto, cosa aspetti? Clicca subito il tasto crea</h3>
+                        <h3 className="text-center mt-5 title">Ei {user.name} non hai ancora caricato tue foto, cosa aspetti? Clicca subito il tasto crea</h3>
                     }
                 </div>
 
