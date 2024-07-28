@@ -19,7 +19,10 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.send({
+        success: true,
+        message: "Welcome to Node Photos Collector"
+    });
 })
 
 // Auth
