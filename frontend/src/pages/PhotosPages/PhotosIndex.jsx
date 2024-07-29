@@ -18,16 +18,23 @@ const PhotosIndex = () => {
     const [filterTitle, setFilterTitle] = useState('');
     const [filterUser, setFilterUser] = useState('');
     const [totalPages, setTotalPages] = useState();
+    const [visiblePhoto, setVisiblePhoto] = useState("visible");
 
     const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
     const currentPage = parseInt(searchParams.get('page'));
 
-    const fetchPhotos = async () => {
-        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: currentPage } });
+    const fetchPhotos = async (isFilter) => {
+        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: isFilter ? 1 : currentPage, visible: visiblePhoto } });
         const newPhotos = res.data.data;
         const totPages = res.data.totalPages;
+
+        if (isFilter) {
+            setSearchParams({ page: 1 });
+        }
+
         setPhotos(newPhotos);
         setTotalPages(totPages);
+
     }
 
     const changedPages = (direction, element) => {
@@ -40,8 +47,13 @@ const PhotosIndex = () => {
 
     useEffect(() => {
         fetchPhotos();
-        setUserMessage({})
-    }, [filterTitle, filterUser, searchParams]);
+    }, [searchParams]);
+
+    useEffect(() => {
+        fetchPhotos('filter');
+        setUserMessage({});
+    }, [filterTitle, filterUser, visiblePhoto]);
+
 
     return (
         <section className="container">
@@ -69,18 +81,28 @@ const PhotosIndex = () => {
                         />
                     </div>
 
+                    {/* Filtro del SuperAdmin per vedere le varie tipologie di foto */}
+                    {user?.isSuperAdmin &&
+                        <select value={visiblePhoto} onChange={e => setVisiblePhoto(e.target.value)} className="form-select w-auto" name="visible">
+                            <option value="visible">Visibili</option>
+                            <option value="invisible">Non Visibili</option>
+                            <option value="all">Tutte</option>
+                        </select>
+                    }
 
+                    {/* Filtro delle tue foto */}
                     {(photos.length !== 0 || !filterTitle) && user && <div className="form-check form-switch">
                         <input
                             checked={filterUser}
                             onChange={e => setFilterUser(e.target.checked)}
                             className="form-check-input"
                             type="checkbox" role="switch"
-                            id="flexSwitchCheckDefault"
+                            id="photos"
                         />
 
-                        <label className="form-check-label label" htmlFor="flexSwitchCheckDefault">Le tue foto</label>
+                        <label className="form-check-label label" htmlFor="photos">Le tue foto</label>
                     </div>}
+
 
                 </div>
 
@@ -101,7 +123,7 @@ const PhotosIndex = () => {
                 <div className="row g-5">
 
                     {/* Cards */}
-                    {photos?.map(({ id, title, image, categories, slug, user }) => (
+                    {photos?.map(({ id, title, image, categories, slug, user, visible }) => (
                         <div key={`photo-${id}`} className="col-4">
 
                             <PhotoCard
@@ -110,6 +132,7 @@ const PhotosIndex = () => {
                                 categories={categories}
                                 slug={slug}
                                 author={user}
+                                visible={visible}
                             />
 
                         </div>

@@ -78,10 +78,12 @@ const index = async (req, res) => {
         }
 
         // Filtro della visibilità
-        if (visible === 'true') {
+        if (visible === 'visible') {
             where.visible = true;
-        } else if (visible === 'false') {
+        } else if (visible === 'invisible') {
             where.visible = false;
+        } else if (visible == 'all') {
+
         }
 
         // Paginazione
