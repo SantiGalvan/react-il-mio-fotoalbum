@@ -70,3 +70,7 @@
 .badgeContainer {
     display: flex;
 }
+
+.invisible {
+    background-color: var(--invisible-card-background-color);
+}

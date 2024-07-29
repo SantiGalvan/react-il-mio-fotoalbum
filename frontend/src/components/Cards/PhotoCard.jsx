@@ -20,7 +20,7 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
     }
 
     return (
-        <div onClick={goShow} className={isShow ? photoCardStyle.showCard : photoCardStyle.indexCard}>
+        <div onClick={goShow} className={`${isShow ? photoCardStyle.showCard : photoCardStyle.indexCard} ${visible ? '' : photoCardStyle.invisible}`}>
 
             <figure>
                 <img src={`${image}`} alt={title} />
