@@ -31,6 +31,7 @@ const store = async (req, res) => {
         description,
         userId,
         visible: req.body.visible ? req.body.visible : false,
+        validated: user.isSuperAdmin ? true : false,
         categories: {
             connect: categories.map(category => ({ id: category.id }))
         }
@@ -102,7 +103,9 @@ const index = async (req, res) => {
 
         if (page > totalPages) throw new Error(`La pagina ${page} non esiste`);
 
+        // Variabili dove inserirò le informazioni dello user recuperato dal token
         let userId;
+        let isSuperAdmin;
 
         // Ricavo lo user dal Token
         if (req.headers.authorization) {
@@ -111,12 +114,18 @@ const index = async (req, res) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const userEmail = decoded.email;
             const user = await prisma.user.findUnique({ where: { email: userEmail } });
+            isSuperAdmin = user.isSuperAdmin;
             userId = user.id;
         }
 
         // Filtro dello user
         if (user === 'true' && userId) {
             where.userId = userId
+        }
+
+        // Invio solo le foto validate se non sei il Super Admin
+        if (!isSuperAdmin) {
+            where.validated = true;
         }
 
         const photos = await prisma.photo.findMany({
