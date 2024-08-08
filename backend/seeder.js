@@ -216,12 +216,13 @@ const photos = [
         image: "http://localhost:3000/photos/ritratto-di-giovane-donna.jpg",
         description: "Ritratto di una giovane donna con sguardo sereno",
         visible: false,
+        validated: true,
         categories: [3],
         userId: 2,
     },
     {
         id: 9,
-        title: "Paesaggio autunnale con foglie rosse",
+        title: "Paesaggio autunnale",
         slug: "paesaggio-autunnale-con-foglie-rosse",
         image: "http://localhost:3000/photos/paesaggio-autunnale-con-foglie-rosse.jpg",
         description: "Paesaggio autunnale con alberi dalle foglie rosse cadenti",
@@ -270,6 +271,7 @@ const photos = [
         image: "http://localhost:3000/photos/foresta-innevata.jpg",
         description: "Paesaggio di una foresta innevata con alberi ricoperti di neve",
         visible: false,
+        validated: true,
         categories: [1, 2],
         userId: 1,
     },
@@ -335,6 +337,7 @@ const photos = [
         image: "http://localhost:3000/photos/campagna-toscana-in-primavera.jpg",
         description: "Paesaggio della campagna toscana con campi verdi e cielo azzurro",
         visible: false,
+        validated: true,
         categories: [1, 2],
         userId: 1,
     },
@@ -386,7 +389,7 @@ prisma.message.createMany({
 // Photos
 photos.forEach(photo => {
 
-    const { id, title, slug, description, image, visible, userId, categories } = photo;
+    const { id, title, slug, description, image, visible, userId, categories, validated } = photo;
 
     const data = {
         id,
@@ -395,6 +398,7 @@ photos.forEach(photo => {
         image,
         description,
         visible,
+        validated,
         userId,
         categories: { connect: categories.map(id => ({ id })) }
     }
