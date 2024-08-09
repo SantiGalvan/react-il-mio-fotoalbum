@@ -6,6 +6,7 @@ const errorHandler = require("../middlewares/errorHandler.js");
 const { PORT, HOST } = process.env;
 const dotenv = require("dotenv");
 const deletePic = require("../utils/deletePic.js");
+const sendEmail = require('../utils/sendEmail.js');
 dotenv.config();
 
 const store = async (req, res) => {
@@ -39,6 +40,7 @@ const store = async (req, res) => {
 
     try {
 
+        // Creo la foto nel DB
         const photo = await prisma.photo.create({
             data,
             include: {
@@ -56,6 +58,20 @@ const store = async (req, res) => {
             }
         });
 
+        // Se lo user non è il Super Admin invia un'email al Super Admin per la validazione della foto
+        if (!user.isSuperAdmin) {
+
+            // Recupero i dati del Super Admin per inviargli l'email
+            const recipient = {
+                name: process.env.SUPER_ADMIN_NAME,
+                email: process.env.SUPER_ADMIN_EMAIL
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, true, photo);
+        }
+
+        // Restituisco uno status 200 e invio la foto appena creata
         res.status(200).send(photo);
 
     } catch (err) {
@@ -71,7 +87,7 @@ const index = async (req, res) => {
         const where = {}
 
         // Parametri presi dalla query
-        const { title, visible, page = 1, limit = 9, user } = req.query;
+        const { title, visible, page = 1, limit = 9, user, validated } = req.query;
 
         // Se c'è il titolo, filtro
         if (title) {
@@ -83,8 +99,13 @@ const index = async (req, res) => {
             where.visible = true;
         } else if (visible === 'invisible') {
             where.visible = false;
-        } else if (visible == 'all') {
+        }
 
+        // Filtro della validazione
+        if (validated === 'valid') {
+            where.validated = true;
+        } else if (validated === 'invalid') {
+            where.validated = false;
         }
 
         // Paginazione
