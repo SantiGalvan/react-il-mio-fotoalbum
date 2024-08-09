@@ -212,6 +212,7 @@ const Dashboard = () => {
                     closeModal={() => setLogoutMode(false)}
                     title={user?.name}
                     clickLogout={logout}
+                    logoutMode={logoutMode}
                 />
             }
 
