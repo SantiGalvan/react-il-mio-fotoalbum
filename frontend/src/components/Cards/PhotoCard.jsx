@@ -7,7 +7,7 @@ import { GrValidate } from "react-icons/gr";
 import { RxCrossCircled } from "react-icons/rx";
 import polaroid from '../../assets/img/polaroid.png'
 
-const PhotoCard = ({ title, author, description, image, categories, visible, slug, isShow, onDelete, validated, changeValidated }) => {
+const PhotoCard = ({ title, author, description, image, categories, visible, slug, isShow, onDelete, validated, onValidated }) => {
 
     const { user } = useAuth();
 
@@ -58,17 +58,20 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
                     <div className='d-flex justify-content-center gap-3'>
                         {(author?.name == user?.name || user?.isSuperAdmin) &&
                             <>
+                                {/* Bottone di modifica */}
                                 <Link to={`/photos/${slug}/edit`} className={`${photoCardStyle.dataBtn} btn btn-warning d-flex align-items-center gap-1 my-4`}><Pencil />Modifica</Link>
 
+                                {/* Bottone di validazione - Toogle */}
                                 {(user.isSuperAdmin) &&
                                     <button
-                                        onClick={() => changeValidated(validated)}
+                                        onClick={onValidated}
                                         className={`${photoCardStyle.dataBtn} btn btn-${validated ? 'danger' : 'success'} d-flex align-items-center gap-1 my-4`}>
                                         {validated ? <RxCrossCircled /> : <GrValidate />}
                                         {validated ? 'Invalida' : 'Valida'}
                                     </button>
                                 }
 
+                                {/* Bottone di eliminazione */}
                                 <button
                                     onClick={onDelete}
                                     className={`${photoCardStyle.dataBtn} btn btn-danger d-flex align-items-center gap-1 my-4`}>
