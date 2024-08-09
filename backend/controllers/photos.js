@@ -68,7 +68,7 @@ const store = async (req, res) => {
             }
 
             // Invio l'email
-            sendEmail(recipient, user, true, photo);
+            sendEmail(recipient, user, 'validated', photo);
         }
 
         // Restituisco uno status 200 e invio la foto appena creata
@@ -351,8 +351,25 @@ const validated = async (req, res) => {
 
         const photo = await prisma.photo.update({
             where: { slug },
-            data
+            data,
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                        email: true
+                    }
+                }
+            }
         });
+
+        // Recupero i dati del Super Admin per inviargli l'email
+        const recipient = {
+            name: photo.user.name,
+            email: photo.user.email
+        }
+
+        // Invio l'email
+        sendEmail(recipient, null, 'to validate', photo);
 
         res.status(200).send(photo);
 
