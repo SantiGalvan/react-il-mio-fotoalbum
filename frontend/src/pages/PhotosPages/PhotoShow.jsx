@@ -58,6 +58,7 @@ const PhotoShow = () => {
                     author={photo?.user}
                     visible={photo?.visible}
                     slug={photo?.slug}
+                    validated={photo?.validated}
 
                     onDelete={() => setDeleteMode(true)}
                 />

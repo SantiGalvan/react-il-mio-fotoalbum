@@ -133,7 +133,7 @@ const PhotosIndex = () => {
                 <div className="row g-5">
 
                     {/* Cards */}
-                    {photos?.map(({ id, title, image, categories, slug, user, visible }) => (
+                    {photos?.map(({ id, title, image, categories, slug, user, visible, validated }) => (
                         <div key={`photo-${id}`} className="col-4">
 
                             <PhotoCard
@@ -143,6 +143,7 @@ const PhotosIndex = () => {
                                 slug={slug}
                                 author={user}
                                 visible={visible}
+                                validated={validated}
                             />
 
                         </div>
