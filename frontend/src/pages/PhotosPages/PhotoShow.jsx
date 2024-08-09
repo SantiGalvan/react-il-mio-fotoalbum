@@ -32,6 +32,14 @@ const PhotoShow = () => {
         navigate('/photos');
     }
 
+    const changeValidated = async (validated) => {
+        const res = await axios.patch(`/photos/${slug}`, { validated: !validated });
+
+        if (res.status < 400) {
+            fetchPhoto();
+        }
+    }
+
     useEffect(() => {
         fetchPhoto();
         return () => {
@@ -61,6 +69,7 @@ const PhotoShow = () => {
                     validated={photo?.validated}
 
                     onDelete={() => setDeleteMode(true)}
+                    changeValidated={changeValidated}
                 />
 
                 {deleteMode &&

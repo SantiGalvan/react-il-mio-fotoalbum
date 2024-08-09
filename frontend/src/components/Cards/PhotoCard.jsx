@@ -4,9 +4,10 @@ import { BsFillPencilFill as Pencil } from "react-icons/bs";
 import { FaRegTrashCan as Trash } from "react-icons/fa6";
 import { useAuth } from '../../contexts/AuthContext';
 import { GrValidate } from "react-icons/gr";
+import { RxCrossCircled } from "react-icons/rx";
 import polaroid from '../../assets/img/polaroid.png'
 
-const PhotoCard = ({ title, author, description, image, categories, visible, slug, isShow, onDelete, validated }) => {
+const PhotoCard = ({ title, author, description, image, categories, visible, slug, isShow, onDelete, validated, changeValidated }) => {
 
     const { user } = useAuth();
 
@@ -59,10 +60,12 @@ const PhotoCard = ({ title, author, description, image, categories, visible, slu
                             <>
                                 <Link to={`/photos/${slug}/edit`} className={`${photoCardStyle.dataBtn} btn btn-warning d-flex align-items-center gap-1 my-4`}><Pencil />Modifica</Link>
 
-                                {(user.isSuperAdmin && !validated) &&
+                                {(user.isSuperAdmin) &&
                                     <button
-                                        className={`${photoCardStyle.dataBtn} btn btn-success d-flex align-items-center gap-1 my-4`}>
-                                        <GrValidate />Valida
+                                        onClick={() => changeValidated(validated)}
+                                        className={`${photoCardStyle.dataBtn} btn btn-${validated ? 'danger' : 'success'} d-flex align-items-center gap-1 my-4`}>
+                                        {validated ? <RxCrossCircled /> : <GrValidate />}
+                                        {validated ? 'Invalida' : 'Valida'}
                                     </button>
                                 }
 
