@@ -340,4 +340,25 @@ const destroy = async (req, res) => {
     }
 }
 
-module.exports = { store, index, show, update, destroy }
+const validated = async (req, res) => {
+    try {
+
+        const { slug } = req.params;
+
+        const { validated } = req.body;
+
+        const data = { validated };
+
+        const photo = await prisma.photo.update({
+            where: { slug },
+            data
+        });
+
+        res.status(200).send(photo);
+
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
+}
+
+module.exports = { store, index, show, update, destroy, validated }
