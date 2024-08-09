@@ -1,23 +1,10 @@
+const formattedDate = require("./formattedDate")
+
 // Content dell'email da inviare al super admin per validare un nuovo post
 const emailToValidate = (user, object) => {
     return `
 <!DOCTYPE html>
-<html lang="es">
-<style>
-    html {
-        background-color: white;
-    }
-
-    body {
-        max-width: 600px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: auto;
-        background-color: rgb(229, 255, 246);
-        padding: 40px;
-        border-radius: 4px;
-        margin-top: 10px;
-    }
-</style>
+<html lang="it">
 
 <body>
     <h1>Validazione foto creata da ${user.name}</h1>
@@ -30,4 +17,42 @@ const emailToValidate = (user, object) => {
 `
 }
 
-module.exports = emailToValidate;
+const emailToChangeValidate = object => {
+    if (object.validated) {
+
+        return `
+    <!DOCTYPE html>
+    <html lang="it">
+    
+    <body>
+        <h1>Foto validata</h1>
+        <p>La tua foto ${object.title} creata il ${formattedDate(object.createdAt)} è stata validata dal Super Admin</p>
+        <p>Per vederla clicca il link
+            <a href='http://localhost:5173/photos/${object.slug}' target="_blank" rel="noopener noreferrer">
+                ${object.title}
+            </a>.
+        </p>
+    </body>
+    
+    </html>
+    `
+
+    } else {
+
+        return `
+    <!DOCTYPE html>
+    <html lang="it">
+
+    <body>
+        <h1>Foto non validata</h1>
+        <p>La tua foto ${object.title} creata il ${formattedDate(object.createdAt)} è stata rifiutata dal Super Admin</p>
+        <p>Prova a modificarla per renderla consona alla validazione</p>
+    </body>
+
+    </html>
+        `
+
+    }
+}
+
+module.exports = { emailToValidate, emailToChangeValidate };
