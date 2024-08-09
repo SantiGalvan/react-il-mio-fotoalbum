@@ -19,12 +19,13 @@ const PhotosIndex = () => {
     const [filterUser, setFilterUser] = useState('');
     const [totalPages, setTotalPages] = useState();
     const [visiblePhoto, setVisiblePhoto] = useState("visible");
+    const [validatedPhoto, setValidatedPhoto] = useState("valid");
 
     const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
     const currentPage = parseInt(searchParams.get('page'));
 
     const fetchPhotos = async (isFilter) => {
-        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: isFilter ? 1 : currentPage, visible: visiblePhoto } });
+        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: isFilter ? 1 : currentPage, visible: visiblePhoto, validated: validatedPhoto } });
         const newPhotos = res.data.data;
         const totPages = res.data.totalPages;
 
@@ -52,7 +53,7 @@ const PhotosIndex = () => {
     useEffect(() => {
         fetchPhotos('filter');
         setUserMessage({});
-    }, [filterTitle, filterUser, visiblePhoto]);
+    }, [filterTitle, filterUser, visiblePhoto, validatedPhoto]);
 
 
     return (
@@ -87,6 +88,15 @@ const PhotosIndex = () => {
                             <option value="visible">Visibili</option>
                             <option value="invisible">Non Visibili</option>
                             <option value="all">Tutte</option>
+                        </select>
+                    }
+
+                    {/* Filtro del SuperAdmin per vedere le foto non validate, validate o tutte */}
+                    {user?.isSuperAdmin &&
+                        <select value={validatedPhoto} onChange={e => setValidatedPhoto(e.target.value)} className="form-select w-auto" name="validated">
+                            <option value="valid">Validate</option>
+                            <option value="invalid">Non Validate</option>
+                            <option value="all-photo">Tutte</option>
                         </select>
                     }
 
