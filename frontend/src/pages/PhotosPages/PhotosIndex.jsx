@@ -160,14 +160,27 @@ const PhotosIndex = () => {
 
             </> :
                 <div className="row mt-5">
+
                     {filterTitle &&
-                        <h3 className="text-center mt-5 title">Non ci sono foto con questo titolo: {filterTitle}</h3>}
+                        <h3 className="text-center mt-5 title">Non ci sono foto con questo titolo: {filterTitle}</h3>
+                    }
+
                     {(filterUser && visiblePhoto !== 'invisible') &&
                         <h3 className="text-center mt-5 title">Ei {user.name} non hai ancora caricato tue foto, cosa aspetti? Clicca subito il tasto crea</h3>
                     }
-                    {(filterUser && visiblePhoto === 'invisible') &&
+
+                    {(filterUser && visiblePhoto === 'invisible' && validatedPhoto === 'valid') &&
                         <h3 className="text-center mt-5 title">Non hai foto non visibili...</h3>
                     }
+
+                    {(visiblePhoto === 'invisible' && validatedPhoto === 'invalid') &&
+                        <h3 className="text-center mt-5 title">Non hai foto non visibili e non hai foto da validare...</h3>
+                    }
+
+                    {(validatedPhoto === 'invalid' && visiblePhoto === 'visible') &&
+                        <h3 className="text-center mt-5 title">Non hai foto da validare...</h3>
+                    }
+
                 </div>
 
             }
