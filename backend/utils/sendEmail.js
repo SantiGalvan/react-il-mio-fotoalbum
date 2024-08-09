@@ -1,11 +1,11 @@
 const brevo = require('@getbrevo/brevo');
 const dotenv = require('dotenv');
 dotenv.config();
-const emailToValidate = require('./htmlContents.js');
+const { emailToValidate, emailToChangeValidate } = require('./htmlContents.js');
 
 
 // Funzione che invia l'email alla quale bisogna specificare l'utente che la invia, l'oggetto dell'email, a chi inviarla, se è per la validazione e l'oggetto da validare
-const sendEmail = async (recipient, user, validated, object) => {
+const sendEmail = async (recipient, user, type, object) => {
 
     // Recupero le apiKey
     const apiKey = process.env.EMAIL_API_KEY;
@@ -15,7 +15,7 @@ const sendEmail = async (recipient, user, validated, object) => {
     const apiInstance = new brevo.TransactionalEmailsApi();
 
     // Se è un'email per la validazione setto l'apiKey dell'email di validazione altrimenti lascio l'email del SuperAdmin
-    if (validated) {
+    if (type === 'validated') {
 
         apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, validatedApiKey);
 
@@ -30,8 +30,10 @@ const sendEmail = async (recipient, user, validated, object) => {
         const sendSmtpEmail = new brevo.SendSmtpEmail();
 
         let subject;
-        if (validated) {
+        if (type === 'validated') {
             subject = 'Email per la validazione di una nuova foto'
+        } else if (type === 'to validate') {
+            subject = 'Risposta sulla validazione della foto'
         }
 
         // Oggetto dell'email
@@ -41,10 +43,10 @@ const sendEmail = async (recipient, user, validated, object) => {
         sendSmtpEmail.to = [{ email: recipient.email, name: recipient.name }];
 
         // Contenuto dell'email
-        sendSmtpEmail.htmlContent = validated ? emailToValidate(user, object) : '';
+        sendSmtpEmail.htmlContent = type === 'validated' ? emailToValidate(user, object) : emailToChangeValidate(object);
 
         // Chi invia l'email | se è per la validazione l'email di validazione, senno l'email del Super Admin
-        if (validated) {
+        if (type === 'validated') {
 
             sendSmtpEmail.sender = {
                 name: process.env.VALIDATED_NAME,
