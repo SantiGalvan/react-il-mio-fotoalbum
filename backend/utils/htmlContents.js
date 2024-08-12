@@ -72,4 +72,41 @@ const emailToDelete = (user, object) => {
 `
 }
 
-module.exports = { emailToValidate, emailToChangeValidate, emailToDelete };
+const emailToSuperAdminUpdate = (user, object) => {
+    return `
+    <!DOCTYPE html>
+    <html lang="it">
+
+    <body>
+        <h1>Foto Modificata dal Super Admin</h1>
+        <p>La tua foto ${object.title} creata il ${formattedDate(object.createdAt)} è stata modificata dal Super Admin ${user.name}</p>
+        <p>Prova a contattare l'admin, anche a questa email per eventuali motivazioni</p>
+        <p>Grazie</p>
+        <p>Super Admin ${user.name}</p>
+    </body>
+
+    </html>
+`
+}
+
+const emailToUpdate = (user, object) => {
+    return `
+    <!DOCTYPE html>
+    <html lang="it">
+
+    <body>
+        <h1>Foto ${object.title} modificata da ${user.name}</h1>
+        <p>La foto ${object.title} creata il ${formattedDate(object.createdAt)} è stata modificata da ${user.name}</p>
+        <p>Controlla che le modifiche siano consone a gli standard del sito</p>
+        <p>Per vedere l'immagine 
+            <a href='http://localhost:5173/photos/${object.slug}' target="_blank" rel="noopener noreferrer">
+                clicca qui
+            </a>
+        </p>
+    </body>
+
+    </html>
+`
+}
+
+module.exports = { emailToValidate, emailToChangeValidate, emailToDelete, emailToSuperAdminUpdate, emailToUpdate };
