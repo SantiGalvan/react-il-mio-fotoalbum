@@ -9,7 +9,7 @@ const emailToValidate = (user, object) => {
 <body>
     <h1>Validazione foto creata da ${user.name}</h1>
     <p>${user.isAdmin ? 'L\'Admin:' : 'Lo user:'} ${user.name} ha appena caricato una nuova foto.</p>
-    <p>Validare la nuova foto con titolo: ${object.name}?
+    <p>Validare la nuova foto con titolo: ${object.title}?
     <a href='http://localhost:5173/photos/${object.slug}' target="_blank" rel="noopener noreferrer">Premi qui per controllare</a>.</p>
 </body >
 
