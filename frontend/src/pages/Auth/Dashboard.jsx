@@ -127,7 +127,11 @@ const Dashboard = () => {
                 {photosNotValid?.length !== 0 &&
                     <div className="col-12" >
                         <div className="card p-4 my-3">
-                            <h3 className="text-center pb-2">Foto da validare</h3>
+
+                            {user.isSuperAdmin ?
+                                <h3 className="text-center pb-2">Foto da validare</h3> :
+                                <h3 className="text-center pb-2">Foto ancora non validate</h3>
+                            }
 
                             <div className="card p-4">
 
