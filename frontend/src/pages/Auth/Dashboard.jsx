@@ -19,6 +19,8 @@ const Dashboard = () => {
     const [typeToDelete, setTypeToDelete] = useState();
     const [photos, setPhotos] = useState();
     const [messages, setMessages] = useState();
+    const [photosNotValid, setPhotosNotValid] = useState();
+    const [abstractDescription, setAbstractDescription] = useState();
 
     const fetchPhotos = async () => {
         let data = {
@@ -29,7 +31,12 @@ const Dashboard = () => {
         if (!user.isSuperAdmin) data.user = true
 
         const res = await axios.get('/photos', { params: data });
-        setPhotos(res.data.data);
+        const newPhotos = res.data.data;
+        setPhotos(newPhotos);
+
+        // Se ci sono foto da validare le inserisco in questa variabile
+        const newPhotosToValidated = newPhotos.filter(photo => photo.validated === false);
+        setPhotosNotValid(newPhotosToValidated);
     }
 
     const fetchMessages = async () => {
@@ -73,6 +80,39 @@ const Dashboard = () => {
         }
     }
 
+    const formattedDate = (dateToFormatted) => {
+        const date = new Date(dateToFormatted);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        const italianDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        return italianDate;
+    }
+
+    const getAbstractDescription = () => {
+
+        const photodescriptions = photosNotValid?.map(photo => photo.description);
+        const photoToAbstract = photodescriptions?.filter(photo => photo.length > 40);
+
+        if (photoToAbstract) {
+
+            let newContent = [];
+
+            for (let i = 0; i < photoToAbstract.length; i++) {
+                const abstract = photoToAbstract[i].toString().substr(0, 40) + '...';
+                newContent.push(abstract);
+            }
+
+            setAbstractDescription(newContent ? newContent : []);
+        }
+    }
+
     useEffect(() => {
         fetchPhotos();
         fetchMessages();
@@ -84,11 +124,72 @@ const Dashboard = () => {
 
                 <h1 className="text-center title">Benvenuto {user.name}</h1>
 
+                {photosNotValid?.length !== 0 &&
+                    <div className="col-12" >
+                        <div className="card p-4 my-3">
+                            <h3 className="text-center pb-2">Foto da validare</h3>
+
+                            <div className="card p-4">
+
+
+                                <table className="table table-dark mb-0">
+                                    <thead>
+                                        <tr>
+
+                                            <th scope="col">id</th>
+                                            <th scope="col">Titolo</th>
+                                            <th scope="col">Descrizione</th>
+                                            <th scope="col">Visibile</th>
+                                            <th scope="col">Fotografo</th>
+                                            <th scope="col">Data</th>
+                                            <th scope="col"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {photosNotValid?.map(photo =>
+                                        (<tr key={`photo-${photo.id}`}>
+                                            <th scope="row">{photo.id}</th>
+                                            <td>{photo.title}</td>
+
+                                            {abstractDescription ?
+                                                <td>{abstractDescription}</td> :
+                                                <td>{photo.description}</td>
+                                            }
+
+                                            <td>{photo.visible ? 'Si' : 'No'}</td>
+                                            <td>{photo.user.name}</td>
+                                            <td>{formattedDate(photo.createdAt)}</td>
+                                            <td>
+                                                <div className='d-flex justify-content-center gap-2'>
+
+                                                    <Link to={`/photos/${photo.slug}`} className='btn btn-sm btn-primary d-flex align-items-center justify-content-center'><FaEye /></Link>
+                                                    <Link to={`/photos/${photo.slug}/edit`} className='btn btn-sm btn-warning d-flex align-items-center justify-content-center'><Pencil /></Link>
+                                                    <button onClick={() => { getElementToDelete(photo.slug) }} className='btn btn-sm btn-danger d-flex align-items-center justify-content-center'><Trash /></button>
+
+                                                </div>
+                                            </td>
+                                        </tr>)
+                                        )}
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
                 <div className="col-7">
 
                     <div className="card p-4 my-3">
 
-                        <h3 className="text-center pb-2">Le tue foto</h3>
+                        {user.isSuperAdmin ?
+                            <h3 className="text-center pb-2">Tutte le foto</h3> :
+                            <h3 className="text-center pb-2">Le tue foto</h3>
+                        }
 
                         <div className="card p-4">
 
