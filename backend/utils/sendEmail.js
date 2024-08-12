@@ -29,20 +29,35 @@ const sendEmail = async (recipient, user, type, object) => {
 
         const sendSmtpEmail = new brevo.SendSmtpEmail();
 
-        // Variabile dell'oggetto con tutti i casi possibili
+        // Variabile dell'oggetto e del contenuto con tutti i casi possibili
         let subject;
-        if (type === 'validated') {
-            subject = 'Email per la validazione di una nuova foto';
-        } else if (type === 'to validate') {
-            subject = 'Risposta sulla validazione della foto';
-        } else if (type === 'deleted') {
-            subject = `Cancellazione foto ${object.title}`;
-        } else if (type === 'SuperAdmin update') {
-            subject = `Modifica foto da parte del SuoperAdmin alla foto: ${object.title}`;
-        } else if (type === 'update') {
-            subject = `Modifica della foto ${object.title} da parte di ${user.name}`;
-        } else if (type === 'message') {
-            subject = `Nuovo messaggio`;
+        let emailContent;
+        switch (type) {
+            case 'validated':
+                subject = 'Email per la validazione di una nuova foto';
+                emailContent = emailToValidate(user, object);
+                break;
+            case 'to validate':
+                subject = 'Risposta sulla validazione della foto';
+                emailContent = emailToChangeValidate(object);
+                break;
+            case 'deleted':
+                subject = `Cancellazione foto ${object.title}`;
+                emailContent = emailToDelete(user, object);
+                break;
+            case 'SuperAdmin update':
+                subject = `Modifica foto da parte del SuoperAdmin alla foto: ${object.title}`;
+                emailContent = emailToSuperAdminUpdate(user, object);
+                break;
+            case 'update':
+                subject = `Modifica della foto ${object.title} da parte di ${user.name}`;
+                emailContent = emailToUpdate(user, object);
+                break;
+            case 'message':
+                subject = `Nuovo messaggio`;
+                emailContent = emailToMessage(object);
+                break;
+
         }
 
         // Oggetto dell'email
@@ -50,21 +65,6 @@ const sendEmail = async (recipient, user, type, object) => {
 
         // A chi invii l'email
         sendSmtpEmail.to = [{ email: recipient.email, name: recipient.name }];
-
-        let emailContent;
-        if (type === 'validated') {
-            emailContent = emailToValidate(user, object);
-        } else if (type === 'to validate') {
-            emailContent = emailToChangeValidate(object);
-        } else if (type === 'deleted') {
-            emailContent = emailToDelete(user, object);
-        } else if (type === 'SuperAdmin update') {
-            emailContent = emailToSuperAdminUpdate(user, object);
-        } else if (type === 'update') {
-            emailContent = emailToUpdate(user, object);
-        } else if (type === 'message') {
-            emailContent = emailToMessage(object);
-        }
 
         // Contenuto dell'email
         sendSmtpEmail.htmlContent = emailContent;
