@@ -2,7 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const errorHandler = require("../middlewares/errorHandler.js");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 const formattedDate = require("../utils/formattedDate.js");
+const sendEmail = require('../utils/sendEmail.js');
+dotenv.config();
 
 const store = async (req, res) => {
     const { content, email, userId, photoId } = req.body;
@@ -17,6 +20,19 @@ const store = async (req, res) => {
     try {
 
         const message = await prisma.message.create({ data });
+
+        if (data.userId === 7) {
+
+            // Recupero i dati del Super Admin per inviargli l'email
+            const recipient = {
+                name: process.env.SUPER_ADMIN_NAME,
+                email: process.env.SUPER_ADMIN_EMAIL
+            }
+
+            // Invio l'email
+            sendEmail(recipient, null, 'message', message);
+        }
+
         res.status(200).send(message);
 
     } catch (err) {

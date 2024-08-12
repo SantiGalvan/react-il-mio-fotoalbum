@@ -109,4 +109,23 @@ const emailToUpdate = (user, object) => {
 `
 }
 
-module.exports = { emailToValidate, emailToChangeValidate, emailToDelete, emailToSuperAdminUpdate, emailToUpdate };
+const emailToMessage = object => {
+    return `
+    <!DOCTYPE html>
+    <html lang="it">
+
+    <body>
+        <h1>Messaggio ricevuto da ${object.email}</h1>
+        <p>${object.content}</p>
+        <p>Per controllare il messaggio 
+            <a href='http://localhost:5173/messages/${object.id}' target="_blank" rel="noopener noreferrer">
+                clicca qui
+            </a>
+        </p>
+    </body>
+
+    </html>
+`
+}
+
+module.exports = { emailToValidate, emailToChangeValidate, emailToDelete, emailToSuperAdminUpdate, emailToUpdate, emailToMessage };
