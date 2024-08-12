@@ -6,6 +6,7 @@ const errorHandler = require("../middlewares/errorHandler.js");
 const { PORT, HOST } = process.env;
 const dotenv = require("dotenv");
 const deletePic = require("../utils/deletePic.js");
+const sendEmail = require('../utils/sendEmail.js');
 dotenv.config();
 
 const store = async (req, res) => {
@@ -31,6 +32,7 @@ const store = async (req, res) => {
         description,
         userId,
         visible: req.body.visible ? req.body.visible : false,
+        validated: user.isSuperAdmin ? true : false,
         categories: {
             connect: categories.map(category => ({ id: category.id }))
         }
@@ -38,6 +40,7 @@ const store = async (req, res) => {
 
     try {
 
+        // Creo la foto nel DB
         const photo = await prisma.photo.create({
             data,
             include: {
@@ -55,6 +58,20 @@ const store = async (req, res) => {
             }
         });
 
+        // Se lo user non è il Super Admin invia un'email al Super Admin per la validazione della foto
+        if (!user.isSuperAdmin) {
+
+            // Recupero i dati del Super Admin per inviargli l'email
+            const recipient = {
+                name: process.env.SUPER_ADMIN_NAME,
+                email: process.env.SUPER_ADMIN_EMAIL
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'validated', photo);
+        }
+
+        // Restituisco uno status 200 e invio la foto appena creata
         res.status(200).send(photo);
 
     } catch (err) {
@@ -70,7 +87,7 @@ const index = async (req, res) => {
         const where = {}
 
         // Parametri presi dalla query
-        const { title, visible, page = 1, limit = 9, user } = req.query;
+        const { title, visible, page = 1, limit = 9, user, validated } = req.query;
 
         // Se c'è il titolo, filtro
         if (title) {
@@ -82,8 +99,13 @@ const index = async (req, res) => {
             where.visible = true;
         } else if (visible === 'invisible') {
             where.visible = false;
-        } else if (visible == 'all') {
+        }
 
+        // Filtro della validazione
+        if (validated === 'valid') {
+            where.validated = true;
+        } else if (validated === 'invalid') {
+            where.validated = false;
         }
 
         // Paginazione
@@ -102,7 +124,9 @@ const index = async (req, res) => {
 
         if (page > totalPages) throw new Error(`La pagina ${page} non esiste`);
 
+        // Variabili dove inserirò le informazioni dello user recuperato dal token
         let userId;
+        let isSuperAdmin;
 
         // Ricavo lo user dal Token
         if (req.headers.authorization) {
@@ -111,12 +135,18 @@ const index = async (req, res) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const userEmail = decoded.email;
             const user = await prisma.user.findUnique({ where: { email: userEmail } });
+            isSuperAdmin = user.isSuperAdmin;
             userId = user.id;
         }
 
         // Filtro dello user
         if (user === 'true' && userId) {
-            where.userId = userId
+            where.userId = userId;
+        }
+
+        // Invio solo le foto validate se non sei il Super Admin
+        if (!isSuperAdmin && user !== 'true') {
+            where.validated = true;
         }
 
         const photos = await prisma.photo.findMany({
@@ -215,6 +245,7 @@ const update = async (req, res) => {
         let photo;
 
         if (user.isSuperAdmin) {
+
             photo = await prisma.photo.update({
                 where,
                 data,
@@ -228,11 +259,21 @@ const update = async (req, res) => {
                     },
                     user: {
                         select: {
-                            name: true
+                            name: true,
+                            email: true
                         }
                     }
                 }
             });
+
+            // Recupero i dati dell'utente per inviargli l'email
+            const recipient = {
+                name: photo.user.name,
+                email: photo.user.email
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'SuperAdmin update', photo);
 
         } else {
 
@@ -256,6 +297,16 @@ const update = async (req, res) => {
                     }
                 }
             });
+
+            // Recupero i dati del Super Admin per inviargli l'email
+            const recipient = {
+                name: process.env.SUPER_ADMIN_NAME,
+                email: process.env.SUPER_ADMIN_EMAIL
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'update', photo);
+
         }
 
 
@@ -285,7 +336,29 @@ const destroy = async (req, res) => {
         let photo;
 
         if (user.isSuperAdmin) {
-            photo = await prisma.photo.delete({ where });
+
+            photo = await prisma.photo.delete({
+                where,
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            });
+
+            // Recupero i dati dell'utente per inviargli l'email
+            const recipient = {
+                name: photo.user.name,
+                email: photo.user.email
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'deleted', photo);
+
+
         } else {
 
             where.userId = userId;
@@ -310,4 +383,42 @@ const destroy = async (req, res) => {
     }
 }
 
-module.exports = { store, index, show, update, destroy }
+const validated = async (req, res) => {
+    try {
+
+        const { slug } = req.params;
+
+        const { validated } = req.body;
+
+        const data = { validated };
+
+        const photo = await prisma.photo.update({
+            where: { slug },
+            data,
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                        email: true
+                    }
+                }
+            }
+        });
+
+        // Recupero i dati del Super Admin per inviargli l'email
+        const recipient = {
+            name: photo.user.name,
+            email: photo.user.email
+        }
+
+        // Invio l'email
+        sendEmail(recipient, null, 'to validate', photo);
+
+        res.status(200).send(photo);
+
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
+}
+
+module.exports = { store, index, show, update, destroy, validated }

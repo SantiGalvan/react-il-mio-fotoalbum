@@ -7,6 +7,7 @@ const { bodyData } = require("../validations/photos.js");
 const validationToken = require("../middlewares/auth.js");
 const multer = require("multer");
 const path = require("path");
+const authSuperAdmin = require("../middlewares/authSuperAdmin.js");
 
 const storage = multer.diskStorage({
     destination: "public/photos",
@@ -34,5 +35,8 @@ router.put('/:slug', [upload.single("image"), validationToken, validator(bodyDat
 
 // Rotta Delete
 router.delete('/:slug', validationToken, photosController.destroy);
+
+// Rotta Patch per la validazione fatta dal Super Admin
+router.patch('/:slug', [validationToken, authSuperAdmin], photosController.validated);
 
 module.exports = router;

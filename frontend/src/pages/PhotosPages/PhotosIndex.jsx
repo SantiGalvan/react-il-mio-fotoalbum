@@ -19,12 +19,13 @@ const PhotosIndex = () => {
     const [filterUser, setFilterUser] = useState('');
     const [totalPages, setTotalPages] = useState();
     const [visiblePhoto, setVisiblePhoto] = useState("visible");
+    const [validatedPhoto, setValidatedPhoto] = useState("valid");
 
     const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
     const currentPage = parseInt(searchParams.get('page'));
 
     const fetchPhotos = async (isFilter) => {
-        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: isFilter ? 1 : currentPage, visible: visiblePhoto } });
+        const res = await axios.get('/photos', { params: { title: filterTitle, user: filterUser, page: isFilter ? 1 : currentPage, visible: visiblePhoto, validated: validatedPhoto } });
         const newPhotos = res.data.data;
         const totPages = res.data.totalPages;
 
@@ -52,7 +53,7 @@ const PhotosIndex = () => {
     useEffect(() => {
         fetchPhotos('filter');
         setUserMessage({});
-    }, [filterTitle, filterUser, visiblePhoto]);
+    }, [filterTitle, filterUser, visiblePhoto, validatedPhoto]);
 
 
     return (
@@ -90,6 +91,15 @@ const PhotosIndex = () => {
                         </select>
                     }
 
+                    {/* Filtro del SuperAdmin per vedere le foto non validate, validate o tutte */}
+                    {user?.isSuperAdmin &&
+                        <select value={validatedPhoto} onChange={e => setValidatedPhoto(e.target.value)} className="form-select w-auto" name="validated">
+                            <option value="valid">Validate</option>
+                            <option value="invalid">Non Validate</option>
+                            <option value="all-photo">Tutte</option>
+                        </select>
+                    }
+
                     {/* Filtro delle tue foto */}
                     {(photos.length !== 0 || !filterTitle) && user && <div className="form-check form-switch">
                         <input
@@ -123,7 +133,7 @@ const PhotosIndex = () => {
                 <div className="row g-5">
 
                     {/* Cards */}
-                    {photos?.map(({ id, title, image, categories, slug, user, visible }) => (
+                    {photos?.map(({ id, title, image, categories, slug, user, visible, validated }) => (
                         <div key={`photo-${id}`} className="col-4">
 
                             <PhotoCard
@@ -133,6 +143,7 @@ const PhotosIndex = () => {
                                 slug={slug}
                                 author={user}
                                 visible={visible}
+                                validated={validated}
                             />
 
                         </div>
@@ -149,14 +160,27 @@ const PhotosIndex = () => {
 
             </> :
                 <div className="row mt-5">
+
                     {filterTitle &&
-                        <h3 className="text-center mt-5 title">Non ci sono foto con questo titolo: {filterTitle}</h3>}
+                        <h3 className="text-center mt-5 title">Non ci sono foto con questo titolo: {filterTitle}</h3>
+                    }
+
                     {(filterUser && visiblePhoto !== 'invisible') &&
                         <h3 className="text-center mt-5 title">Ei {user.name} non hai ancora caricato tue foto, cosa aspetti? Clicca subito il tasto crea</h3>
                     }
-                    {(filterUser && visiblePhoto === 'invisible') &&
+
+                    {(filterUser && visiblePhoto === 'invisible' && validatedPhoto === 'valid') &&
                         <h3 className="text-center mt-5 title">Non hai foto non visibili...</h3>
                     }
+
+                    {(visiblePhoto === 'invisible' && validatedPhoto === 'invalid') &&
+                        <h3 className="text-center mt-5 title">Non hai foto non visibili e non hai foto da validare...</h3>
+                    }
+
+                    {(validatedPhoto === 'invalid' && visiblePhoto === 'visible') &&
+                        <h3 className="text-center mt-5 title">Non hai foto da validare...</h3>
+                    }
+
                 </div>
 
             }

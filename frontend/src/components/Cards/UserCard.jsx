@@ -61,7 +61,6 @@ const UserCard = ({ user, onDelete, changeSwitch }) => {
                         <h6>Admin</h6>
 
                         <div className="mb-3 d-flex gap-2">
-                            {/* <label className="form-check-label" htmlFor="visible">Foto visibile:</label> */}
                             <div className="form-check form-switch">
                                 <input
                                     className="form-check-input"

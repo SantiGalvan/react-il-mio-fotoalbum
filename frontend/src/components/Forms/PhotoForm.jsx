@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useGlobal } from '../../contexts/GlobalContext';
 import { TiPlus as Plus } from "react-icons/ti";
 import { BsArrowClockwise } from "react-icons/bs";
+import { FiSave } from "react-icons/fi";
 
 const PhotoForm = ({ onSubmit, dataEdit }) => {
 
@@ -138,7 +139,12 @@ const PhotoForm = ({ onSubmit, dataEdit }) => {
                     <div className="buttons d-flex justify-content-center gap-3 my-4">
 
                         {/* Bottoni */}
-                        <button className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</button>
+
+                        {dataEdit ?
+                            <button className="btn btn-success d-flex align-items-center gap-1"><FiSave />Salva</button> :
+                            <button className="btn btn-success d-flex align-items-center gap-1"><Plus />Crea</button>
+                        }
+
                         <button type="reset" className="btn btn-warning d-flex align-items-center gap-1"><BsArrowClockwise />Reset</button>
 
                     </div>
