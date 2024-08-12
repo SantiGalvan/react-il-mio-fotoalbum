@@ -141,11 +141,11 @@ const index = async (req, res) => {
 
         // Filtro dello user
         if (user === 'true' && userId) {
-            where.userId = userId
+            where.userId = userId;
         }
 
         // Invio solo le foto validate se non sei il Super Admin
-        if (!isSuperAdmin) {
+        if (!isSuperAdmin && user !== 'true') {
             where.validated = true;
         }
 
@@ -245,6 +245,7 @@ const update = async (req, res) => {
         let photo;
 
         if (user.isSuperAdmin) {
+
             photo = await prisma.photo.update({
                 where,
                 data,
@@ -258,11 +259,21 @@ const update = async (req, res) => {
                     },
                     user: {
                         select: {
-                            name: true
+                            name: true,
+                            email: true
                         }
                     }
                 }
             });
+
+            // Recupero i dati dell'utente per inviargli l'email
+            const recipient = {
+                name: photo.user.name,
+                email: photo.user.email
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'SuperAdmin update', photo);
 
         } else {
 
@@ -286,6 +297,16 @@ const update = async (req, res) => {
                     }
                 }
             });
+
+            // Recupero i dati del Super Admin per inviargli l'email
+            const recipient = {
+                name: process.env.SUPER_ADMIN_NAME,
+                email: process.env.SUPER_ADMIN_EMAIL
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'update', photo);
+
         }
 
 
