@@ -1,7 +1,7 @@
 const brevo = require('@getbrevo/brevo');
 const dotenv = require('dotenv');
 dotenv.config();
-const { emailToValidate, emailToChangeValidate } = require('./htmlContents.js');
+const { emailToValidate, emailToChangeValidate, emailToDelete } = require('./htmlContents.js');
 
 
 // Funzione che invia l'email alla quale bisogna specificare l'utente che la invia, l'oggetto dell'email, a chi inviarla, se è per la validazione e l'oggetto da validare
@@ -31,9 +31,11 @@ const sendEmail = async (recipient, user, type, object) => {
 
         let subject;
         if (type === 'validated') {
-            subject = 'Email per la validazione di una nuova foto'
+            subject = 'Email per la validazione di una nuova foto';
         } else if (type === 'to validate') {
-            subject = 'Risposta sulla validazione della foto'
+            subject = 'Risposta sulla validazione della foto';
+        } else if (type === 'deleted') {
+            subject = `Cancellazione foto ${object.title}`;
         }
 
         // Oggetto dell'email
@@ -42,8 +44,17 @@ const sendEmail = async (recipient, user, type, object) => {
         // A chi invii l'email
         sendSmtpEmail.to = [{ email: recipient.email, name: recipient.name }];
 
+        let emailContent;
+        if (type === 'validated') {
+            emailContent = emailToValidate(user, object);
+        } else if (type === 'to validate') {
+            emailContent = emailToChangeValidate(object);
+        } else if (type === 'deleted') {
+            emailContent = emailToDelete(user, object);
+        }
+
         // Contenuto dell'email
-        sendSmtpEmail.htmlContent = type === 'validated' ? emailToValidate(user, object) : emailToChangeValidate(object);
+        sendSmtpEmail.htmlContent = emailContent;
 
         // Chi invia l'email | se è per la validazione l'email di validazione, senno l'email del Super Admin
         if (type === 'validated') {

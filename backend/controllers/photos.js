@@ -315,7 +315,29 @@ const destroy = async (req, res) => {
         let photo;
 
         if (user.isSuperAdmin) {
-            photo = await prisma.photo.delete({ where });
+
+            photo = await prisma.photo.delete({
+                where,
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            });
+
+            // Recupero i dati dell'utente per inviargli l'email
+            const recipient = {
+                name: photo.user.name,
+                email: photo.user.email
+            }
+
+            // Invio l'email
+            sendEmail(recipient, user, 'deleted', photo);
+
+
         } else {
 
             where.userId = userId;

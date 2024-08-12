@@ -50,9 +50,26 @@ const emailToChangeValidate = object => {
     </body>
 
     </html>
-        `
+    `
 
     }
 }
 
-module.exports = { emailToValidate, emailToChangeValidate };
+const emailToDelete = (user, object) => {
+    return `
+    <!DOCTYPE html>
+    <html lang="it">
+
+    <body>
+        <h1>Foto Eliminata</h1>
+        <p>La tua foto ${object.title} creata il ${formattedDate(object.createdAt)} è stata eliminata dal Super Admin ${user.name}</p>
+        <p>Prova a contattare l'admin, anche a questa email per eventuali motivazioni</p>
+        <p>Grazie</p>
+        <p>Super Admin ${user.name}</p>
+    </body>
+
+    </html>
+`
+}
+
+module.exports = { emailToValidate, emailToChangeValidate, emailToDelete };
