@@ -1,6 +1,6 @@
 import sun from '../../assets/img/Sun.svg';
 import moon from '../../assets/img/Moon.svg';
-import '../../scss/components/Toggle.css';
+import '../../scss/components/toggle.scss';
 
 const Toggle = ({ handleChange, isChecked }) => {
     return (
